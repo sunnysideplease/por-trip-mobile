@@ -1,0 +1,1968 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover, maximum-scale=1">
+<meta name="theme-color" content="#0f1419">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<title>포르투갈 · 스페인 여행</title>
+<style>
+:root {
+  --bg: #0f1419;
+  --bg2: #1a222c;
+  --bg3: #243040;
+  --card: #1e2833;
+  --border: #2a3644;
+  --text: #e8eef4;
+  --muted: #8b9aab;
+  --accent: #5b9fd4;
+  --accent2: #7eb8e0;
+  --warn: #e8a54b;
+  --danger: #e07a6a;
+  --ok: #6bc49a;
+  --gap: #c9a0dc;
+  --radius: 14px;
+  --tap: 48px;
+  --safe-b: env(safe-area-inset-bottom, 0px);
+  --nav-h: calc(64px + var(--safe-b));
+  --font: -apple-system, BlinkMacSystemFont, "Pretendard", "Apple SD Gothic Neo", "Noto Sans KR", sans-serif;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html, body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--font);
+  font-size: 16px;
+  line-height: 1.45;
+  -webkit-tap-highlight-color: transparent;
+  min-height: 100%;
+}
+body { max-width: 430px; margin: 0 auto; min-height: 100dvh; position: relative; }
+a { color: var(--accent2); text-decoration: none; }
+button {
+  font: inherit; color: inherit; background: none; border: none; cursor: pointer;
+  min-height: var(--tap); min-width: var(--tap);
+}
+.app-header {
+  position: sticky; top: 0; z-index: 20;
+  background: rgba(15,20,25,.92); backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--border);
+  padding: 12px 16px 10px;
+}
+.app-header h1 { font-size: 1.05rem; font-weight: 650; letter-spacing: -0.02em; }
+.app-header .sub { font-size: .78rem; color: var(--muted); margin-top: 2px; }
+.main {
+  padding: 12px 14px calc(var(--nav-h) + 16px);
+  min-height: calc(100dvh - 70px);
+}
+.nav {
+  position: fixed; bottom: 0; left: 50%; transform: translateX(-50%);
+  width: 100%; max-width: 430px;
+  display: grid; grid-template-columns: repeat(6, 1fr);
+  background: rgba(26,34,44,.96); backdrop-filter: blur(14px);
+  border-top: 1px solid var(--border);
+  padding: 4px 2px var(--safe-b);
+  z-index: 30;
+}
+.nav a {
+  display: flex; flex-direction: column; align-items: center; justify-content: center;
+  gap: 2px; min-height: 56px; color: var(--muted); font-size: .65rem; font-weight: 500;
+  border-radius: 10px; padding: 4px 2px;
+}
+.nav a.active { color: var(--accent2); }
+.nav a .ico { font-size: 1.15rem; line-height: 1; }
+.card {
+  background: var(--card); border: 1px solid var(--border);
+  border-radius: var(--radius); padding: 14px 14px; margin-bottom: 10px;
+}
+.card.tap { cursor: pointer; transition: background .15s; }
+.card.tap:active { background: var(--bg3); }
+.card h2, .sec-title {
+  font-size: .72rem; text-transform: uppercase; letter-spacing: .06em;
+  color: var(--muted); font-weight: 600; margin-bottom: 8px;
+}
+.card h3 { font-size: 1.05rem; font-weight: 650; margin-bottom: 4px; }
+.row { display: flex; justify-content: space-between; align-items: flex-start; gap: 10px; }
+.muted { color: var(--muted); font-size: .88rem; }
+.sm { font-size: .82rem; }
+.mono { font-family: ui-monospace, SFMono-Regular, Menlo, monospace; letter-spacing: .02em; }
+.badge {
+  display: inline-block; font-size: .7rem; font-weight: 650;
+  padding: 3px 8px; border-radius: 999px; vertical-align: middle;
+}
+.badge.ok { background: rgba(107,196,154,.18); color: var(--ok); }
+.badge.warn { background: rgba(232,165,75,.18); color: var(--warn); }
+.badge.danger { background: rgba(224,122,106,.2); color: var(--danger); }
+.badge.gap { background: rgba(201,160,220,.18); color: var(--gap); }
+.badge.plan { background: rgba(91,159,212,.15); color: var(--accent2); }
+.badge.partial { background: rgba(232,165,75,.18); color: var(--warn); }
+.kv { display: grid; gap: 6px; margin-top: 8px; }
+.kv .item { display: flex; justify-content: space-between; gap: 12px; font-size: .9rem; }
+.kv .item span:first-child { color: var(--muted); flex-shrink: 0; }
+.kv .item span:last-child { text-align: right; word-break: break-word; }
+.list-day {
+  display: flex; align-items: center; gap: 12px; padding: 12px 4px;
+  border-bottom: 1px solid var(--border); min-height: var(--tap);
+}
+.list-day:last-child { border-bottom: none; }
+.list-day .date-col { width: 54px; flex-shrink: 0; text-align: center; }
+.list-day .date-col .d { font-size: 1.15rem; font-weight: 700; }
+.list-day .date-col .w { font-size: .7rem; color: var(--muted); }
+.chip-row { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 8px; }
+.chip {
+  font-size: .75rem; padding: 4px 10px; border-radius: 8px;
+  background: var(--bg3); color: var(--text); border: 1px solid var(--border);
+}
+.back {
+  display: inline-flex; align-items: center; gap: 4px;
+  color: var(--accent2); font-size: .9rem; font-weight: 550;
+  min-height: 40px; margin: -4px 0 8px -4px; padding: 4px 8px;
+}
+.hero-date { font-size: 1.45rem; font-weight: 700; letter-spacing: -0.03em; }
+.hero-city { font-size: 1.1rem; color: var(--accent2); margin-top: 2px; }
+.gap-card {
+  border-left: 3px solid var(--danger);
+  background: rgba(224,122,106,.08);
+}
+.gap-card.med { border-left-color: var(--warn); background: rgba(232,165,75,.08); }
+.gap-card.low, .gap-card.info { border-left-color: var(--muted); background: var(--card); }
+.amount { font-variant-numeric: tabular-nums; font-weight: 600; }
+.total-bar {
+  background: linear-gradient(135deg, #1e2a38, #243448);
+  border: 1px solid var(--border); border-radius: var(--radius);
+  padding: 16px; margin-bottom: 12px;
+}
+.total-bar .label { font-size: .75rem; color: var(--muted); }
+.total-bar .val { font-size: 1.35rem; font-weight: 700; margin-top: 2px; }
+.empty { text-align: center; color: var(--muted); padding: 32px 16px; }
+.loading { text-align: center; padding: 48px 16px; color: var(--muted); }
+.day-picker {
+  display: flex; gap: 6px; overflow-x: auto; padding: 4px 0 10px;
+  -webkit-overflow-scrolling: touch; scrollbar-width: none;
+}
+.day-picker::-webkit-scrollbar { display: none; }
+.day-pill {
+  flex-shrink: 0; padding: 8px 12px; border-radius: 12px;
+  background: var(--bg2); border: 1px solid var(--border);
+  font-size: .8rem; min-height: 44px; display: flex; flex-direction: column;
+  align-items: center; justify-content: center; line-height: 1.2;
+}
+.day-pill.active { background: var(--accent); border-color: var(--accent); color: #fff; }
+.day-pill .w { font-size: .65rem; opacity: .8; }
+.note-box {
+  margin-top: 8px; padding: 10px 12px; border-radius: 10px;
+  background: var(--bg2); font-size: .85rem; color: var(--muted);
+}
+code.pnr {
+  background: var(--bg3); padding: 2px 7px; border-radius: 6px;
+  font-size: .85rem; font-weight: 650;
+}
+.section-gap { margin-top: 18px; }
+.warn-banner {
+  background: rgba(224,122,106,.12); border: 1px solid rgba(224,122,106,.35);
+  border-radius: var(--radius); padding: 12px 14px; margin-bottom: 12px;
+  font-size: .88rem;
+}
+.warn-banner strong { color: var(--danger); }
+
+.badge.locked { background: rgba(107,196,154,.18); color: var(--ok); }
+.badge.suggested { background: rgba(232,165,75,.18); color: var(--warn); }
+.plan-block {
+  display: grid; grid-template-columns: 52px 1fr; gap: 10px;
+  padding: 10px 0; border-bottom: 1px solid var(--border);
+}
+.plan-block:last-child { border-bottom: none; padding-bottom: 0; }
+.plan-block:first-child { padding-top: 0; }
+.plan-time {
+  font-size: .8rem; font-weight: 700; color: var(--accent2);
+  font-variant-numeric: tabular-nums; padding-top: 2px;
+}
+.plan-place { font-weight: 650; font-size: .95rem; }
+.plan-note { font-size: .82rem; color: var(--muted); margin-top: 2px; }
+.plan-kind {
+  display: inline-block; margin-top: 4px; font-size: .68rem;
+  padding: 2px 7px; border-radius: 6px; background: var(--bg3); color: var(--muted);
+}
+.live-date-head {
+  font-size: .78rem; font-weight: 650; color: var(--muted);
+  margin: 14px 4px 6px; letter-spacing: .02em;
+}
+.live-item .amt-pending { color: var(--warn); font-weight: 650; font-size: .9rem; }
+.empty-soft {
+  text-align: left; color: var(--muted); padding: 14px;
+  font-size: .88rem; line-height: 1.5;
+}
+</style>
+</head>
+<body>
+<div class="app-header">
+  <h1>포르투갈 · 스페인</h1>
+  <div class="sub" id="hdr-sub">2026.09.18 – 10.02 · 유경 · 선욱</div>
+</div>
+<main class="main" id="app"><div class="loading">불러오는 중…</div></main>
+<nav class="nav" id="nav" aria-label="주요 메뉴">
+  <a href="#/today" data-r="today"><span class="ico">◎</span>오늘</a>
+  <a href="#/days" data-r="days"><span class="ico">☰</span>일정</a>
+  <a href="#/stays" data-r="stays"><span class="ico">⌂</span>숙소</a>
+  <a href="#/bookings" data-r="bookings"><span class="ico">✈</span>예약</a>
+  <a href="#/spend" data-r="spend"><span class="ico">₩</span>비용</a>
+  <a href="#/gaps" data-r="gaps"><span class="ico">!</span>공백</a>
+</nav>
+<script id="board-embed" type="application/json">
+{
+  "meta": {
+    "title": "Portugal Spain Trip Board 2026",
+    "dates": {
+      "start": "2026-09-18",
+      "end": "2026-10-02"
+    },
+    "travelers": [
+      {
+        "name": "NOH YOOKYOUNG",
+        "role": "guest"
+      },
+      {
+        "name": "KIM SUNWOOK",
+        "role": "guest"
+      }
+    ],
+    "party_size_europe": 2,
+    "city_sequence": [
+      "Lisbon",
+      "Porto",
+      "Felanitx",
+      "Valldemossa",
+      "Malaga",
+      "Ronda",
+      "Setenil",
+      "Seville",
+      "Madrid"
+    ],
+    "source_root": "/workspace/travel/por",
+    "inventory_file_count": 39,
+    "currency_policy": "No conversion unless rate shown in source file",
+    "redaction": "Payment instruments shown as last4 only",
+    "day_plan_schema": "days[].day_plan {status,title,blocks[],updated_at,source}",
+    "spend_schema": "spend.prepaid[] rollup; spend.live[] expenses from YKN",
+    "board_updated_at": "2026-09-21T13:48:03.757781+09:00",
+    "source_of_truth": "Travel Desk"
+  },
+  "days": [
+    {
+      "date": "2026-09-18",
+      "city": "Lisbon",
+      "lodging": {
+        "name": "Villa Dorothea",
+        "status": "confirmed",
+        "check_in": "15:00",
+        "address": "R. das Trinas 61, Lisbon",
+        "source": [
+          "kr.hotels.com-egti-VLN-BL3-T9NU.pdf"
+        ]
+      },
+      "transport": [
+        {
+          "type": "flight",
+          "carrier": "Korean Air",
+          "number": "KE921",
+          "from": "ICN",
+          "to": "LIS",
+          "depart": "12:45",
+          "arrive": "20:15",
+          "status": "confirmed",
+          "notes": "NOH seat 38F on screenshot; KIM card partially visible",
+          "source": [
+            "스크린샷, 2026-08-17 오전 10.50.26.png",
+            "2026_포르투갈_스페인_예약_및_결제_정리.pdf"
+          ]
+        }
+      ],
+      "activities": [],
+      "notes": "Host greets; airport transfer optional with 48h notice"
+    },
+    {
+      "date": "2026-09-19",
+      "city": "Lisbon",
+      "lodging": {
+        "name": "Villa Dorothea",
+        "status": "confirmed",
+        "source": [
+          "kr.hotels.com-egti-VLN-BL3-T9NU.pdf"
+        ]
+      },
+      "transport": [],
+      "activities": [
+        {
+          "name": "Alfama / historic center",
+          "status": "planned",
+          "source": [
+            "portugal_spain_mallorca_region_itinerary_2026.pdf"
+          ]
+        }
+      ],
+      "notes": ""
+    },
+    {
+      "date": "2026-09-20",
+      "city": "Lisbon",
+      "lodging": {
+        "name": "Villa Dorothea",
+        "status": "confirmed",
+        "source": [
+          "kr.hotels.com-egti-VLN-BL3-T9NU.pdf"
+        ]
+      },
+      "transport": [],
+      "activities": [
+        {
+          "name": "Belem or Sao Jorge viewpoints",
+          "status": "planned",
+          "source": [
+            "portugal_spain_mallorca_region_itinerary_2026.pdf"
+          ]
+        }
+      ],
+      "notes": "",
+      "day_plan": {
+        "status": "suggested",
+        "title": "테니스·MVMT·LX·벨렘(타르트·탑)",
+        "blocks": [
+          {
+            "time": "08:00",
+            "place": "Monsanto tennis",
+            "note": "사용자 예약",
+            "kind": "other"
+          },
+          {
+            "time": "09:15",
+            "place": "Breakfast near MVMT",
+            "note": "간단히",
+            "kind": "food"
+          },
+          {
+            "time": "10:00-11:00",
+            "place": "MVMT Recovery Room",
+            "note": "예약됨 1h Recovery",
+            "kind": "rest"
+          },
+          {
+            "time": "11:30",
+            "place": "LX Factory",
+            "note": "MAAT 대신 LX",
+            "kind": "walk"
+          },
+          {
+            "time": "오후",
+            "place": "Pastéis de Belém",
+            "note": "유명 에그타르트",
+            "kind": "food"
+          },
+          {
+            "time": "오후",
+            "place": "Torre de Belém",
+            "note": "밖 전망 OK",
+            "kind": "walk"
+          }
+        ],
+        "updated_at": "2026-09-21T13:48:03.757781+09:00",
+        "source": "travel-desk"
+      }
+    },
+    {
+      "date": "2026-09-21",
+      "city": "Porto",
+      "lodging": {
+        "name": "Mari Pinto Downtown Apartment",
+        "status": "confirmed",
+        "confirmation": "HM2STDYNAZ",
+        "host": "Inês",
+        "check_in": "15:00",
+        "amount_krw": 701096,
+        "source": [
+          "receipt-on-demand.pdf"
+        ],
+        "address": "Rua do General Silveira 29, Porto"
+      },
+      "transport": [
+        {
+          "type": "train",
+          "carrier": "CP",
+          "number": "IC 621",
+          "from": "Lisboa Santa Apolonia",
+          "to": "Porto Campanha",
+          "depart": "11:30",
+          "arrive": "14:43",
+          "class": "1st Conforto",
+          "seats": {
+            "KIM": "11-43",
+            "NOH": "11-45"
+          },
+          "amount_eur": 83.0,
+          "status": "confirmed",
+          "source": [
+            "리스본-포르투 기차표(선욱).pdf",
+            "리스본-포르투 기차표(유경).pdf",
+            "리스본-포르투 기차표값.png"
+          ]
+        }
+      ],
+      "activities": [],
+      "notes": "",
+      "day_plan": {
+        "status": "suggested",
+        "title": "리스본→포르투 도착·Ribeira",
+        "blocks": [
+          {
+            "time": "11:30-14:43",
+            "place": "IC621 LIS→OPO Campanhã",
+            "note": "1ª Classe",
+            "kind": "transit"
+          },
+          {
+            "time": "15:00",
+            "place": "MariPinto Downtown Apt",
+            "note": "Rua do General Silveira 29 체크인",
+            "kind": "rest"
+          },
+          {
+            "time": "저녁",
+            "place": "Ribeira + Dom Luís I / Gaia view",
+            "note": "가볍게",
+            "kind": "walk"
+          }
+        ],
+        "updated_at": "2026-09-21T13:48:03.757781+09:00",
+        "source": "travel-desk"
+      }
+    },
+    {
+      "date": "2026-09-22",
+      "city": "Porto",
+      "lodging": {
+        "name": "Mari Pinto Downtown Apartment",
+        "status": "confirmed",
+        "source": [
+          "receipt-on-demand.pdf"
+        ]
+      },
+      "transport": [],
+      "activities": [
+        {
+          "name": "Ribeira / Gaia / Serralves",
+          "status": "planned",
+          "source": [
+            "portugal_spain_mallorca_region_itinerary_2026.pdf"
+          ]
+        }
+      ],
+      "notes": "",
+      "day_plan": {
+        "status": "suggested",
+        "title": "테니스·사우나·Bombarda·Gaia",
+        "blocks": [
+          {
+            "time": "08:00-09:30",
+            "place": "Quinta de Monserrate / Parque da Cidade",
+            "note": "Playtomic; 2인 Simples €24/h, Duplas €32/h",
+            "kind": "other"
+          },
+          {
+            "time": "10:00-11:00",
+            "place": "Ladata Matosinhos",
+            "note": "MVMT형; 대안 Spa Cénica",
+            "kind": "rest"
+          },
+          {
+            "time": "12:00-14:00",
+            "place": "Rua Miguel Bombarda",
+            "note": "LX형 예술골목",
+            "kind": "walk"
+          },
+          {
+            "time": "15:30-18:30",
+            "place": "Gaia wine + Ribeira",
+            "note": "셀러 1곳",
+            "kind": "walk"
+          }
+        ],
+        "updated_at": "2026-09-21T13:48:03.757781+09:00",
+        "source": "travel-desk"
+      }
+    },
+    {
+      "date": "2026-09-23",
+      "city": "Felanitx",
+      "lodging": {
+        "name": "Finca Son Valls (Adults Only Superior Double)",
+        "status": "confirmed",
+        "confirmation": "HMPBBCQFK5",
+        "host": "Antoni",
+        "amount_krw": 325053,
+        "source": [
+          "receipt-on-demand (1).pdf"
+        ]
+      },
+      "transport": [
+        {
+          "type": "flight",
+          "carrier": "Ryanair",
+          "number": "FR6750",
+          "from": "OPO",
+          "to": "PMI",
+          "depart": "13:10",
+          "arrive": "16:00",
+          "pnr": "L2M88Z",
+          "amount_krw": 580000,
+          "status": "confirmed",
+          "source": [
+            "포르투-마요르카.pdf"
+          ]
+        },
+        {
+          "type": "car_rental",
+          "vendor": "Hertz",
+          "vehicle": "Ford Puma Compact",
+          "pickup": "PMI 2026-09-23 17:00",
+          "dropoff": "PMI 2026-09-27 12:30",
+          "confirmation": "L711E568873",
+          "amount_eur": 471.41,
+          "status": "confirmed",
+          "source": [
+            "rental-car-mayo.pdf"
+          ]
+        }
+      ],
+      "activities": [],
+      "notes": "Self check-in guidance expected day before per trip plan",
+      "day_plan": {
+        "status": "suggested",
+        "title": "오전 짧게→OPO 출국",
+        "blocks": [
+          {
+            "time": "오전",
+            "place": "Clérigos 밖 / Bolhão",
+            "note": "가볍게 택1",
+            "kind": "walk"
+          },
+          {
+            "time": "~11:00",
+            "place": "OPO Airport",
+            "note": "FR6750 13:10",
+            "kind": "transit"
+          }
+        ],
+        "updated_at": "2026-09-21T13:48:03.757781+09:00",
+        "source": "travel-desk"
+      }
+    },
+    {
+      "date": "2026-09-24",
+      "city": "Valldemossa",
+      "lodging": {
+        "name": "Es Petit de Valldemossa",
+        "status": "confirmed",
+        "itinerary": "73523332102486",
+        "room": "Superior Room",
+        "address": "Uetam, 1, Valldemossa",
+        "check_in": "15:00",
+        "check_out": "12:00",
+        "paid_krw": 2703967,
+        "pay_at_property_krw": 21621,
+        "source": [
+          "kr.hotels.com-egti-SVV-F7G-E6EA.pdf"
+        ]
+      },
+      "transport": [
+        {
+          "type": "car",
+          "notes": "Mallorca Hertz car in use",
+          "status": "confirmed",
+          "source": [
+            "rental-car-mayo.pdf"
+          ]
+        }
+      ],
+      "activities": [
+        {
+          "name": "Valldemossa village",
+          "status": "planned",
+          "source": [
+            "portugal_spain_mallorca_region_itinerary_2026.pdf"
+          ]
+        }
+      ],
+      "notes": ""
+    },
+    {
+      "date": "2026-09-25",
+      "city": "Valldemossa",
+      "lodging": {
+        "name": "Es Petit de Valldemossa",
+        "status": "confirmed",
+        "source": [
+          "kr.hotels.com-egti-SVV-F7G-E6EA.pdf"
+        ]
+      },
+      "transport": [
+        {
+          "type": "car",
+          "status": "confirmed",
+          "source": [
+            "rental-car-mayo.pdf"
+          ]
+        }
+      ],
+      "activities": [
+        {
+          "name": "Soller / Fornalutx / Deia",
+          "status": "planned",
+          "source": [
+            "portugal_spain_mallorca_region_itinerary_2026.pdf"
+          ]
+        }
+      ],
+      "notes": ""
+    },
+    {
+      "date": "2026-09-26",
+      "city": "Valldemossa",
+      "lodging": {
+        "name": "Es Petit de Valldemossa",
+        "status": "confirmed",
+        "source": [
+          "kr.hotels.com-egti-SVV-F7G-E6EA.pdf"
+        ]
+      },
+      "transport": [
+        {
+          "type": "car",
+          "status": "confirmed",
+          "source": [
+            "rental-car-mayo.pdf"
+          ]
+        }
+      ],
+      "activities": [
+        {
+          "name": "Tramuntana leisure",
+          "status": "planned",
+          "source": [
+            "portugal_spain_mallorca_region_itinerary_2026.pdf"
+          ]
+        }
+      ],
+      "notes": ""
+    },
+    {
+      "date": "2026-09-27",
+      "city": "Ronda",
+      "lodging": {
+        "name": "Luxury Villa Ronda",
+        "status": "confirmed",
+        "confirmation": "HMYEZH5YMY",
+        "host": "Alejandro",
+        "amount_krw": 418500,
+        "check_in_planned": "16:00",
+        "source": [
+          "receipt-on-demand (2).pdf",
+          "portugal_spain_trip_plan_2026_updated_airbnb.docx"
+        ]
+      },
+      "transport": [
+        {
+          "type": "car_rental_return",
+          "vendor": "Hertz",
+          "location": "PMI",
+          "time": "12:30",
+          "confirmation": "L711E568873",
+          "status": "confirmed",
+          "source": [
+            "rental-car-mayo.pdf"
+          ]
+        },
+        {
+          "type": "flight",
+          "carrier": "Vueling",
+          "number": "VY3149",
+          "from": "PMI",
+          "to": "AGP",
+          "depart": "15:25",
+          "arrive": "17:05",
+          "pnr": "BNQY3K",
+          "amount_krw": 441400,
+          "baggage": "20kg checked each",
+          "status": "confirmed",
+          "source": [
+            "E-itinerary.pdf",
+            "마요르카-말라가.pdf"
+          ]
+        },
+        {
+          "type": "car_rental",
+          "vendor": "Hertz",
+          "vehicle": "Peugeot 208 Economy",
+          "pickup": "AGP 2026-09-27 18:00",
+          "dropoff": "Seville Airport 2026-09-29 17:30",
+          "confirmation": "L711E5640E8",
+          "amount_eur": 253.62,
+          "status": "confirmed",
+          "source": [
+            "rental-mal.pdf"
+          ]
+        }
+      ],
+      "activities": [
+        {
+          "name": "Puente Nuevo / Alameda del Tajo",
+          "status": "planned",
+          "source": [
+            "portugal_spain_mallorca_region_itinerary_2026.pdf"
+          ]
+        }
+      ],
+      "notes": ""
+    },
+    {
+      "date": "2026-09-28",
+      "city": "Setenil de las Bodegas",
+      "lodging": {
+        "name": "Casa Cueva Zafiro / The Gem of Setenil",
+        "status": "confirmed",
+        "confirmation": "HM2MM3FRTP",
+        "host": "Isabel",
+        "amount_krw": 310508,
+        "check_in_planned": "15:00",
+        "source": [
+          "receipt-on-demand (3).pdf"
+        ]
+      },
+      "transport": [
+        {
+          "type": "car",
+          "notes": "Andalusia Hertz in use",
+          "status": "confirmed",
+          "source": [
+            "rental-mal.pdf"
+          ]
+        }
+      ],
+      "activities": [
+        {
+          "name": "Cuevas del Sol / village",
+          "status": "planned",
+          "source": [
+            "portugal_spain_mallorca_region_itinerary_2026.pdf"
+          ]
+        }
+      ],
+      "notes": "Host confirmation needed for entry/parking per trip plan"
+    },
+    {
+      "date": "2026-09-29",
+      "city": "Seville",
+      "lodging": {
+        "name": "Spectacular and spacious apartment in the center",
+        "status": "confirmed",
+        "confirmation": "HM5WC8AD2N",
+        "host": "Joaquín",
+        "nights": 2,
+        "amount_krw": 579180,
+        "check_in_planned": "16:00",
+        "source": [
+          "receipt-on-demand (4).pdf"
+        ]
+      },
+      "transport": [
+        {
+          "type": "car_rental_return",
+          "vendor": "Hertz",
+          "location": "Seville Airport",
+          "time": "17:30",
+          "confirmation": "L711E5640E8",
+          "status": "confirmed",
+          "source": [
+            "rental-mal.pdf"
+          ]
+        }
+      ],
+      "activities": [
+        {
+          "name": "Alcazar / Cathedral / Plaza de Espana / Triana",
+          "status": "planned",
+          "source": [
+            "portugal_spain_mallorca_region_itinerary_2026.pdf"
+          ]
+        }
+      ],
+      "notes": "Lockbox entry per trip plan"
+    },
+    {
+      "date": "2026-09-30",
+      "city": "Seville",
+      "lodging": {
+        "name": "Spectacular and spacious apartment in the center",
+        "status": "confirmed",
+        "source": [
+          "receipt-on-demand (4).pdf"
+        ]
+      },
+      "transport": [],
+      "activities": [
+        {
+          "name": "Seville walking / optional flamenco",
+          "status": "planned",
+          "source": [
+            "portugal_spain_mallorca_region_itinerary_2026.pdf"
+          ]
+        }
+      ],
+      "notes": ""
+    },
+    {
+      "date": "2026-10-01",
+      "city": "Madrid",
+      "lodging": {
+        "name": null,
+        "status": "missing",
+        "source": []
+      },
+      "transport": [
+        {
+          "type": "train",
+          "carrier": "Renfe via RailClick",
+          "from": "Seville",
+          "to": "Madrid",
+          "depart": "10:52",
+          "arrive": "13:33",
+          "ref": "2667835",
+          "passengers": 2,
+          "amount_eur": 90.0,
+          "amount_krw_displayed": 147470,
+          "status": "confirmed",
+          "source": [
+            "세테닐 마드리드 열차 레일클릭.pdf"
+          ]
+        }
+      ],
+      "activities": [
+        {
+          "name": "Optional Cordoba stop 4-6h",
+          "status": "planned_conflicts_with_direct_train",
+          "source": [
+            "portugal_spain_mallorca_region_itinerary_2026.pdf"
+          ]
+        }
+      ],
+      "notes": "Madrid hotel unbooked; Cordoba layover not supported by booked direct train"
+    },
+    {
+      "date": "2026-10-02",
+      "city": "Madrid / departure",
+      "lodging": {
+        "name": null,
+        "status": "missing",
+        "source": []
+      },
+      "transport": [
+        {
+          "type": "flight",
+          "carrier": "Korean Air",
+          "number": "KE914",
+          "from": "MAD",
+          "to": "ICN",
+          "depart": "20:00",
+          "arrive": "16:00+1",
+          "booking_ref_shown": "E3632E",
+          "passengers_shown": [
+            "KIM SUNWOOK"
+          ],
+          "status": "partial",
+          "notes": "NOH return ticket not visible on same screen",
+          "source": [
+            "2026_포르투갈_스페인_예약_및_결제_정리.pdf",
+            "trip-summary-2.png"
+          ]
+        }
+      ],
+      "activities": [
+        {
+          "name": "Retiro or Prado one stop before airport",
+          "status": "planned",
+          "source": [
+            "portugal_spain_mallorca_region_itinerary_2026.pdf"
+          ]
+        }
+      ],
+      "notes": "Aim leave city ~16:30 local per itinerary"
+    }
+  ],
+  "bookings": [
+    {
+      "category": "flight",
+      "id": "KE921",
+      "route": "ICN-LIS",
+      "date": "2026-09-18",
+      "amount_krw": null,
+      "note": "Part of international total 3837916",
+      "source": [
+        "스크린샷, 2026-08-17 오전 10.50.26.png",
+        "2026_포르투갈_스페인_예약_및_결제_정리.pdf"
+      ]
+    },
+    {
+      "category": "flight",
+      "id": "FR6750",
+      "route": "OPO-PMI",
+      "date": "2026-09-23",
+      "pnr": "L2M88Z",
+      "amount_krw": 580000,
+      "payment": "Hyundai card",
+      "source": [
+        "포르투-마요르카.pdf"
+      ]
+    },
+    {
+      "category": "flight",
+      "id": "VY3149",
+      "route": "PMI-AGP",
+      "date": "2026-09-27",
+      "pnr": "BNQY3K",
+      "amount_krw": 441400,
+      "passengers": [
+        "SUNWOOK KIM",
+        "YOOKYOUNG NOH"
+      ],
+      "source": [
+        "E-itinerary.pdf",
+        "마요르카-말라가.pdf"
+      ]
+    },
+    {
+      "category": "flight",
+      "id": "KE914",
+      "route": "MAD-ICN",
+      "date": "2026-10-02",
+      "booking_ref": "E3632E",
+      "amount_krw": null,
+      "note": "Only KIM visible; part of international total",
+      "source": [
+        "2026_포르투갈_스페인_예약_및_결제_정리.pdf",
+        "trip-summary-2.png"
+      ]
+    },
+    {
+      "category": "flight_payment_bundle",
+      "id": "intl_3_charges",
+      "amounts_krw": [
+        3027000,
+        405458,
+        405458
+      ],
+      "total_krw": 3837916,
+      "cards": [
+        "capital one",
+        "capital one",
+        "hyundai card"
+      ],
+      "source": [
+        "flight_spent.png"
+      ]
+    },
+    {
+      "category": "train",
+      "id": "CP-IC621",
+      "route": "LIS-OPO",
+      "date": "2026-09-21",
+      "amount_eur": 83.0,
+      "amount_krw_converted_in_master": 136007,
+      "fx_note": "EUR1=KRW1638.64 from rail booking display",
+      "source": [
+        "리스본-포르투 기차표(선욱).pdf",
+        "리스본-포르투 기차표(유경).pdf",
+        "리스본-포르투 기차표값.png"
+      ]
+    },
+    {
+      "category": "train",
+      "id": "RailClick-2667835",
+      "route": "Seville-Madrid",
+      "date": "2026-10-01",
+      "amount_eur": 90.0,
+      "amount_krw_displayed": 147470,
+      "source": [
+        "세테닐 마드리드 열차 레일클릭.pdf"
+      ]
+    },
+    {
+      "category": "hotel",
+      "id": "73523326063414",
+      "name": "Villa Dorothea",
+      "city": "Lisbon",
+      "nights": "2026-09-18/21",
+      "paid_krw": 1040907,
+      "pay_at_property_krw": 39311,
+      "payment_last4": "7401",
+      "source": [
+        "kr.hotels.com-egti-VLN-BL3-T9NU.pdf"
+      ]
+    },
+    {
+      "category": "airbnb",
+      "id": "HM2STDYNAZ",
+      "name": "Mari Pinto Downtown Apartment",
+      "city": "Porto",
+      "nights": "2026-09-21/23",
+      "amount_krw": 701096,
+      "receipt": "RCRBTKDZXK",
+      "payment_last4": "7401",
+      "source": [
+        "receipt-on-demand.pdf"
+      ]
+    },
+    {
+      "category": "airbnb",
+      "id": "HMPBBCQFK5",
+      "name": "Finca Son Valls",
+      "city": "Felanitx",
+      "nights": "2026-09-23/24",
+      "amount_krw": 325053,
+      "receipt": "RC9MBNKYR3",
+      "payment_last4": "7401",
+      "source": [
+        "receipt-on-demand (1).pdf"
+      ]
+    },
+    {
+      "category": "hotel",
+      "id": "73523332102486",
+      "name": "Es Petit de Valldemossa",
+      "city": "Valldemossa",
+      "nights": "2026-09-24/27",
+      "paid_krw": 2703967,
+      "pay_at_property_krw": 21621,
+      "payment_last4": "7401",
+      "source": [
+        "kr.hotels.com-egti-SVV-F7G-E6EA.pdf"
+      ]
+    },
+    {
+      "category": "airbnb",
+      "id": "HMYEZH5YMY",
+      "name": "Luxury Villa Ronda",
+      "city": "Ronda",
+      "nights": "2026-09-27/28",
+      "amount_krw": 418500,
+      "receipt": "RCQACTCT9K",
+      "payment_last4": "7401",
+      "source": [
+        "receipt-on-demand (2).pdf"
+      ]
+    },
+    {
+      "category": "airbnb",
+      "id": "HM2MM3FRTP",
+      "name": "Casa Cueva Zafiro",
+      "city": "Setenil",
+      "nights": "2026-09-28/29",
+      "amount_krw": 310508,
+      "receipt": "RCND4A28PF",
+      "payment_last4": "7401",
+      "source": [
+        "receipt-on-demand (3).pdf"
+      ]
+    },
+    {
+      "category": "airbnb",
+      "id": "HM5WC8AD2N",
+      "name": "Spectacular apartment Seville center",
+      "city": "Seville",
+      "nights": "2026-09-29/2026-10-01",
+      "amount_krw": 579180,
+      "receipt": "RCQ492NSKA",
+      "payment_last4": "7401",
+      "source": [
+        "receipt-on-demand (4).pdf"
+      ]
+    },
+    {
+      "category": "car_rental",
+      "id": "L711E568873",
+      "vendor": "Hertz",
+      "vehicle": "Ford Puma",
+      "pickup": "PMI 2026-09-23 17:00",
+      "dropoff": "PMI 2026-09-27 12:30",
+      "amount_eur": 471.41,
+      "source": [
+        "rental-car-mayo.pdf"
+      ]
+    },
+    {
+      "category": "car_rental",
+      "id": "L711E5640E8",
+      "vendor": "Hertz",
+      "vehicle": "Peugeot 208",
+      "pickup": "AGP 2026-09-27 18:00",
+      "dropoff": "Seville Airport 2026-09-29 17:30",
+      "amount_eur": 253.62,
+      "source": [
+        "rental-mal.pdf"
+      ]
+    }
+  ],
+  "spend": {
+    "prepaid": [
+      {
+        "category": "international_flights",
+        "currency": "KRW",
+        "prepaid": 3837916,
+        "local": 0,
+        "source": [
+          "2026_포르투갈_스페인_예약_및_결제_정리.pdf",
+          "flight_spent.png"
+        ]
+      },
+      {
+        "category": "europe_flights",
+        "currency": "KRW",
+        "prepaid": 1021400,
+        "local": 0,
+        "breakdown": {
+          "OPO-PMI": 580000,
+          "PMI-AGP": 441400
+        },
+        "source": [
+          "포르투-마요르카.pdf",
+          "마요르카-말라가.pdf"
+        ]
+      },
+      {
+        "category": "train_lisbon_porto",
+        "currency": "EUR",
+        "prepaid": 83.0,
+        "krw_display_in_master": 136007,
+        "source": [
+          "리스본-포르투 기차표값.png",
+          "2026_포르투갈_스페인_예약_및_결제_정리.pdf"
+        ]
+      },
+      {
+        "category": "train_seville_madrid",
+        "currency": "EUR",
+        "prepaid": 90.0,
+        "krw_display_in_master": 147470,
+        "source": [
+          "세테닐 마드리드 열차 레일클릭.pdf"
+        ]
+      },
+      {
+        "category": "lodging_seven_properties",
+        "currency": "KRW",
+        "prepaid": 6079211,
+        "local": 60932,
+        "source": [
+          "2026_포르투갈_스페인_예약_및_결제_정리.pdf"
+        ]
+      },
+      {
+        "category": "master_subtotal_excl_rentals",
+        "currency": "KRW",
+        "prepaid": 11222004,
+        "local": 60932,
+        "expected_total_with_local_tax": 11282936,
+        "source": [
+          "2026_포르투갈_스페인_예약_및_결제_정리.pdf"
+        ]
+      },
+      {
+        "category": "car_rentals",
+        "currency": "EUR",
+        "prepaid": 725.03,
+        "local": null,
+        "note": "Not in Aug23 master total; found in Sep Hertz PDFs",
+        "source": [
+          "rental-car-mayo.pdf",
+          "rental-mal.pdf"
+        ]
+      },
+      {
+        "category": "madrid_lodging",
+        "currency": null,
+        "prepaid": null,
+        "local": null,
+        "note": "unbooked",
+        "source": []
+      }
+    ],
+    "live": []
+  },
+  "gaps": [
+    {
+      "id": "madrid_hotel",
+      "severity": "high",
+      "detail": "No Madrid lodging booking for 2026-10-01/02"
+    },
+    {
+      "id": "noh_return_flight",
+      "severity": "high",
+      "detail": "KE914 booking screen E3632E shows only KIM SUNWOOK; need NOH YOOKYOUNG return ticket"
+    },
+    {
+      "id": "intl_leg_split",
+      "severity": "medium",
+      "detail": "International flight amount only as 3-charge sum; outbound/inbound not split"
+    },
+    {
+      "id": "cordoba_vs_direct_train",
+      "severity": "medium",
+      "detail": "Itinerary suggests Cordoba stop on 10/01 but booked Renfe is direct Seville-Madrid 10:52-13:33"
+    },
+    {
+      "id": "airbnb_checkin_details",
+      "severity": "medium",
+      "detail": "Exact check-in instructions/addresses for several Airbnbs still host-dependent"
+    },
+    {
+      "id": "rental_krw_and_extras",
+      "severity": "low",
+      "detail": "Rental totals only in EUR; deposit/second driver/insurance details limited in extracted text"
+    },
+    {
+      "id": "chaekapture_not_bookings",
+      "severity": "info",
+      "detail": "책캡쳐 notes/scans are inspiration only, not bookings"
+    },
+    {
+      "id": "generator_script",
+      "severity": "info",
+      "detail": "build_trip_reservation_pdf.py is a generator, not a booking source"
+    }
+  ]
+}
+</script>
+<script>
+(function () {
+  'use strict';
+
+  const WEEK_KO = ['일','월','화','수','목','금','토'];
+  const SEV = { high: '높음', medium: '보통', low: '낮음', info: '참고' };
+  const SEV_CLS = { high: 'danger', medium: 'warn', low: 'gap', info: 'plan' };
+  const CAT_KO = {
+    international_flights: '국제선 항공',
+    europe_flights: '유럽 내 항공',
+    train_lisbon_porto: '리스본–포르투 열차',
+    train_seville_madrid: '세비야–마드리드 열차',
+    lodging_seven_properties: '숙소 7곳',
+    master_subtotal_excl_rentals: '소계 (렌트 제외)',
+    car_rentals: '렌터카 (Hertz)',
+    madrid_lodging: '마드리드 숙소'
+  };
+  const TYPE_KO = {
+    flight: '항공', train: '열차', car: '차량',
+    car_rental: '렌터카', car_rental_return: '렌터카 반납'
+  };
+
+  let BOARD = null;
+
+  function esc(s) {
+    if (s == null || s === '') return '';
+    return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+  }
+  function fmtKRW(n) {
+    if (n == null || n === '') return '—';
+    return '₩' + Number(n).toLocaleString('ko-KR');
+  }
+  function fmtEUR(n) {
+    if (n == null || n === '') return '—';
+    return '€' + Number(n).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+  }
+  function parseYMD(s) {
+    const [y,m,d] = s.split('-').map(Number);
+    return new Date(y, m - 1, d);
+  }
+  function ymdLocal(d) {
+    const y = d.getFullYear();
+    const m = String(d.getMonth()+1).padStart(2,'0');
+    const day = String(d.getDate()).padStart(2,'0');
+    return y + '-' + m + '-' + day;
+  }
+  function europeTodayYMD() {
+    try {
+      return new Intl.DateTimeFormat('en-CA', {
+        timeZone: 'Europe/Madrid', year: 'numeric', month: '2-digit', day: '2-digit'
+      }).format(new Date());
+    } catch (e) {
+      return ymdLocal(new Date());
+    }
+  }
+  function fmtDayTitle(dateStr) {
+    const d = parseYMD(dateStr);
+    const m = d.getMonth() + 1;
+    const day = d.getDate();
+    const w = WEEK_KO[d.getDay()];
+    return m + '/' + day + ' (' + w + ')';
+  }
+  function fmtDayShort(dateStr) {
+    const d = parseYMD(dateStr);
+    return (d.getMonth()+1) + '/' + d.getDate();
+  }
+  function statusBadge(st) {
+    if (!st) return '';
+    const map = {
+      confirmed: ['확정','ok'],
+      planned: ['계획','plan'],
+      planned_conflicts_with_direct_train: ['계획·충돌','warn'],
+      missing: ['미예약','danger'],
+      partial: ['부분','partial']
+    };
+    const [lab, cls] = map[st] || [st, 'plan'];
+    return '<span class="badge ' + cls + '">' + esc(lab) + '</span>';
+  }
+
+  function lodgingLookup(name) {
+    if (!name || !BOARD) return null;
+    return (BOARD.bookings || []).find(b =>
+      (b.category === 'hotel' || b.category === 'airbnb') &&
+      (b.name === name || (b.name && name && (b.name.includes(name.slice(0,12)) || name.includes(b.name.slice(0,12)))))
+    ) || null;
+  }
+
+  function enrichLodging(day) {
+    const L = day.lodging || {};
+    const book = lodgingLookup(L.name);
+    const conf = L.confirmation || L.itinerary || (book && book.id) || null;
+    const address = L.address || null;
+    const checkIn = L.check_in || L.check_in_planned || null;
+    const checkOut = L.check_out || null;
+    const host = L.host || null;
+    let amount = null;
+    if (L.amount_krw != null) amount = L.amount_krw;
+    else if (L.paid_krw != null) amount = L.paid_krw;
+    else if (book) amount = book.amount_krw != null ? book.amount_krw : book.paid_krw;
+    const payLocal = L.pay_at_property_krw != null ? L.pay_at_property_krw
+      : (book && book.pay_at_property_krw != null ? book.pay_at_property_krw : null);
+    const nights = book ? book.nights : null;
+    return { ...L, conf, address, checkIn, checkOut, host, amount, payLocal, nights, book };
+  }
+
+  function dayGaps(dateStr) {
+    const gaps = BOARD.gaps || [];
+    const day = BOARD.days.find(d => d.date === dateStr);
+    const out = [];
+    if (dateStr === '2026-10-01' || dateStr === '2026-10-02') {
+      const g = gaps.find(x => x.id === 'madrid_hotel');
+      if (g) out.push(g);
+    }
+    if (dateStr === '2026-10-02') {
+      const g = gaps.find(x => x.id === 'noh_return_flight');
+      if (g) out.push(g);
+    }
+    if (dateStr === '2026-10-01') {
+      const g = gaps.find(x => x.id === 'cordoba_vs_direct_train');
+      if (g) out.push(g);
+    }
+    if (day && day.lodging && day.lodging.status === 'missing') {
+      if (!out.some(x => x.id === 'madrid_hotel')) {
+        out.push({ id: 'madrid_hotel', severity: 'high', detail: '마드리드 숙소 미예약' });
+      }
+    }
+    const airbnbDays = ['2026-09-21','2026-09-23','2026-09-27','2026-09-28','2026-09-29'];
+    if (airbnbDays.includes(dateStr)) {
+      const g = gaps.find(x => x.id === 'airbnb_checkin_details');
+      if (g && !out.some(x => x.id === g.id)) out.push(g);
+    }
+    return out;
+  }
+
+  function pickTodayDay() {
+    const today = europeTodayYMD();
+    const days = BOARD.days;
+    const hit = days.find(d => d.date === today);
+    if (hit) return hit;
+    const start = days[0].date;
+    const end = days[days.length - 1].date;
+    if (today < start) return days[0];
+    if (today > end) return days[days.length - 1];
+    let best = days[0];
+    let bestDiff = Infinity;
+    const t = parseYMD(today).getTime();
+    for (const d of days) {
+      const diff = Math.abs(parseYMD(d.date).getTime() - t);
+      if (diff < bestDiff) { bestDiff = diff; best = d; }
+    }
+    return best;
+  }
+
+  function daySpendBits(day) {
+    const bits = [];
+    for (const t of (day.transport || [])) {
+      if (t.amount_eur != null) bits.push({ label: TYPE_KO[t.type] || t.type, val: fmtEUR(t.amount_eur) });
+      if (t.amount_krw != null) bits.push({ label: TYPE_KO[t.type] || t.type, val: fmtKRW(t.amount_krw) });
+      if (t.amount_krw_displayed != null) bits.push({ label: (TYPE_KO[t.type]||'') + ' (표시)', val: fmtKRW(t.amount_krw_displayed) });
+    }
+    const L = enrichLodging(day);
+    if (L.amount != null && day.lodging && (day.lodging.amount_krw != null || day.lodging.paid_krw != null)) {
+      bits.push({ label: '숙소', val: fmtKRW(L.amount) });
+    }
+    if (L.payLocal != null && day.lodging && day.lodging.pay_at_property_krw != null) {
+      bits.push({ label: '현지세', val: fmtKRW(L.payLocal) });
+    }
+    return bits;
+  }
+
+  function renderTransport(t) {
+    const type = TYPE_KO[t.type] || t.type;
+    let title = type;
+    if (t.type === 'flight') title = (t.carrier || '') + ' ' + (t.number || '');
+    else if (t.type === 'train') title = (t.carrier || '열차') + (t.number ? ' ' + t.number : '');
+    else if (t.type === 'car_rental') title = (t.vendor || '렌터카') + (t.vehicle ? ' · ' + t.vehicle : '');
+    else if (t.type === 'car_rental_return') title = (t.vendor || 'Hertz') + ' 반납';
+    else if (t.type === 'car') title = '렌터카 이용 중';
+
+    const lines = [];
+    if (t.from && t.to) lines.push(['구간', esc(t.from) + ' → ' + esc(t.to)]);
+    if (t.depart || t.arrive) {
+      lines.push(['시간', esc((t.depart || '?') + (t.arrive ? ' → ' + t.arrive : ''))]);
+    }
+    if (t.pickup) lines.push(['픽업', esc(t.pickup)]);
+    if (t.dropoff) lines.push(['반납', esc(t.dropoff)]);
+    if (t.location && t.time) lines.push(['반납', esc(t.location + ' ' + t.time)]);
+    if (t.pnr) lines.push(['PNR', '<code class="pnr">' + esc(t.pnr) + '</code>']);
+    if (t.confirmation) lines.push(['확인코드', '<code class="pnr">' + esc(t.confirmation) + '</code>']);
+    if (t.ref) lines.push(['참조', '<code class="pnr">' + esc(t.ref) + '</code>']);
+    if (t.booking_ref_shown) lines.push(['예약번호', '<code class="pnr">' + esc(t.booking_ref_shown) + '</code>']);
+    if (t.class) lines.push(['등급', esc(t.class)]);
+    if (t.seats) {
+      const seats = Object.entries(t.seats).map(([k,v]) => k + ' ' + v).join(' · ');
+      lines.push(['좌석', esc(seats)]);
+    }
+    if (t.passengers_shown) lines.push(['탑승객(표시)', esc(t.passengers_shown.join(', '))]);
+    if (t.baggage) lines.push(['수하물', esc(t.baggage)]);
+    if (t.amount_eur != null) lines.push(['금액', '<span class="amount">' + fmtEUR(t.amount_eur) + '</span>']);
+    if (t.amount_krw != null) lines.push(['금액', '<span class="amount">' + fmtKRW(t.amount_krw) + '</span>']);
+    if (t.amount_krw_displayed != null) lines.push(['표시 금액', '<span class="amount">' + fmtKRW(t.amount_krw_displayed) + '</span>']);
+    if (t.notes) lines.push(['메모', esc(t.notes)]);
+
+    return '<div class="card">' +
+      '<div class="row"><h3>' + esc(title) + '</h3>' + statusBadge(t.status) + '</div>' +
+      '<div class="kv">' + lines.map(([k,v]) =>
+        '<div class="item"><span>' + k + '</span><span>' + v + '</span></div>'
+      ).join('') + '</div></div>';
+  }
+
+  function renderLodgingCard(day, compact) {
+    const L = enrichLodging(day);
+    if (!L || L.status === 'missing' || !L.name) {
+      return '<div class="card gap-card">' +
+        '<h2>숙소</h2><h3>미예약</h3>' +
+        '<p class="muted sm">마드리드 10/1–10/2 숙소 공백</p>' +
+        statusBadge('missing') + '</div>';
+    }
+    const lines = [];
+    if (L.address) lines.push(['주소', esc(L.address)]);
+    if (L.host) lines.push(['호스트', esc(L.host)]);
+    if (L.conf) lines.push(['확인코드', '<code class="pnr">' + esc(L.conf) + '</code>']);
+    if (L.nights) lines.push(['일정', esc(L.nights)]);
+    if (L.checkIn) lines.push(['체크인', esc(L.checkIn)]);
+    if (L.checkOut) lines.push(['체크아웃', esc(L.checkOut)]);
+    if (L.room) lines.push(['객실', esc(L.room)]);
+    if (L.amount != null) lines.push(['금액', '<span class="amount">' + fmtKRW(L.amount) + '</span>']);
+    if (L.payLocal != null) lines.push(['현지 결제', '<span class="amount">' + fmtKRW(L.payLocal) + '</span>']);
+
+    return '<div class="card">' +
+      '<h2>숙소</h2>' +
+      '<div class="row"><h3>' + esc(L.name) + '</h3>' + statusBadge(L.status) + '</div>' +
+      (compact && day.city ? '<p class="muted sm">' + esc(day.city) + '</p>' : '') +
+      '<div class="kv">' + lines.map(([k,v]) =>
+        '<div class="item"><span>' + k + '</span><span>' + v + '</span></div>'
+      ).join('') + '</div></div>';
+  }
+
+
+  function dayPlanBadge(status) {
+    if (status === 'locked') return '<span class="badge locked">확정</span>';
+    if (status === 'suggested') return '<span class="badge suggested">제안</span>';
+    if (!status) return '';
+    return '<span class="badge plan">' + esc(status) + '</span>';
+  }
+
+  function renderDayPlan(day) {
+    const plan = day.day_plan;
+    let html = '<div class="section-gap"><div class="sec-title" style="padding-left:2px">동선</div>';
+    if (!plan) {
+      html += '<div class="card"><p class="empty-soft">Travel Desk에 오늘 동선을 확정하면 여기에 뜹니다</p></div></div>';
+      return html;
+    }
+    const title = plan.title ? esc(plan.title) : '오늘의 동선';
+    html += '<div class="card">' +
+      '<div class="row"><h3 style="font-size:1rem">' + title + '</h3>' +
+      dayPlanBadge(plan.status) + '</div>';
+    const blocks = Array.isArray(plan.blocks) ? plan.blocks : [];
+    if (!blocks.length) {
+      html += '<p class="muted sm" style="margin-top:8px">블록 없음</p>';
+    } else {
+      html += '<div style="margin-top:10px">';
+      for (const b of blocks) {
+        const time = b.time ? esc(b.time) : '—';
+        html += '<div class="plan-block">' +
+          '<div class="plan-time">' + time + '</div>' +
+          '<div>' +
+          (b.place ? '<div class="plan-place">' + esc(b.place) + '</div>' : '') +
+          (b.note ? '<div class="plan-note">' + esc(b.note) + '</div>' : '') +
+          (b.kind ? '<span class="plan-kind">' + esc(b.kind) + '</span>' : '') +
+          '</div></div>';
+      }
+      html += '</div>';
+    }
+    if (plan.updated_at) {
+      html += '<p class="muted sm" style="margin-top:10px">업데이트 ' + esc(plan.updated_at) + '</p>';
+    }
+    html += '</div></div>';
+    return html;
+  }
+
+  function spendPrepaidList() {
+    const s = BOARD.spend;
+    if (Array.isArray(s)) return s;
+    if (s && typeof s === 'object') {
+      if (Array.isArray(s.prepaid)) return s.prepaid;
+      if (Array.isArray(s.items)) return s.items;
+      if (Array.isArray(s.summary)) return s.summary;
+    }
+    return [];
+  }
+
+  function spendLiveList() {
+    const s = BOARD.spend;
+    if (s && typeof s === 'object' && !Array.isArray(s) && Array.isArray(s.live)) {
+      return s.live;
+    }
+    return [];
+  }
+
+  function fmtLiveAmount(item) {
+    if (item.amount == null || item.amount === '') {
+      return '<span class="amt-pending">금액 미확인</span>';
+    }
+    const cur = (item.currency || '').toUpperCase();
+    if (cur === 'EUR') return '<span class="amount">' + fmtEUR(item.amount) + '</span>';
+    if (cur === 'KRW') return '<span class="amount">' + fmtKRW(item.amount) + '</span>';
+    return '<span class="amount">' + esc(String(item.amount)) +
+      (cur ? ' ' + esc(cur) : '') + '</span>';
+  }
+
+  function liveCategoryLabel(cat) {
+    if (!cat) return '';
+    const map = {
+      food: '식비', meal: '식비', cafe: '카페', transport: '교통', taxi: '택시',
+      lodging: '숙소', shopping: '쇼핑', ticket: '티켓', activity: '활동',
+      grocery: '장보기', tip: '팁', other: '기타'
+    };
+    return map[cat] || CAT_KO[cat] || cat;
+  }
+
+  function renderDayDetail(day, opts) {
+    opts = opts || {};
+    const gaps = dayGaps(day.date);
+    const spend = daySpendBits(day);
+    let html = '';
+
+    if (opts.showPicker) {
+      html += '<div class="day-picker">';
+      for (const d of BOARD.days) {
+        const act = d.date === day.date ? ' active' : '';
+        html += '<a class="day-pill' + act + '" href="#/day/' + d.date + '">' +
+          '<span>' + fmtDayShort(d.date) + '</span><span class="w">' + WEEK_KO[parseYMD(d.date).getDay()] + '</span></a>';
+      }
+      html += '</div>';
+    }
+
+    if (opts.back) {
+      html += '<a class="back" href="#/days">← 전체 일정</a>';
+    }
+
+    html += '<div class="card" style="margin-bottom:12px">' +
+      '<div class="hero-date">' + esc(fmtDayTitle(day.date)) + '</div>' +
+      '<div class="hero-city">' + esc(day.city) + '</div>' +
+      (opts.isTodayApprox ? '<p class="muted sm" style="margin-top:6px">유럽 현지 기준 ' +
+        (europeTodayYMD() === day.date ? '오늘' : '가장 가까운 여행일') + '</p>' : '') +
+      '</div>';
+
+    if (gaps.length) {
+      html += '<div class="warn-banner"><strong>이날 공백</strong><ul style="margin:6px 0 0 18px">';
+      for (const g of gaps) html += '<li>' + esc(g.detail) + '</li>';
+      html += '</ul></div>';
+    }
+
+    html += renderDayPlan(day);
+
+    html += renderLodgingCard(day);
+
+    html += '<div class="section-gap"><div class="sec-title" style="padding-left:2px">교통</div>';
+    if (!day.transport || !day.transport.length) {
+      html += '<div class="card"><p class="muted">예정된 교통 없음 (도보/대중교통)</p></div>';
+    } else {
+      for (const t of day.transport) html += renderTransport(t);
+    }
+    html += '</div>';
+
+    html += '<div class="section-gap"><div class="sec-title" style="padding-left:2px">활동</div>';
+    if (!day.activities || !day.activities.length) {
+      html += '<div class="card"><p class="muted">등록된 활동 없음</p></div>';
+    } else {
+      for (const a of day.activities) {
+        html += '<div class="card"><div class="row"><h3 style="font-size:1rem">' + esc(a.name) + '</h3>' +
+          statusBadge(a.status) + '</div></div>';
+      }
+    }
+    html += '</div>';
+
+    if (spend.length) {
+      html += '<div class="section-gap"><div class="sec-title" style="padding-left:2px">이날 금액</div><div class="card"><div class="kv">';
+      for (const s of spend) {
+        html += '<div class="item"><span>' + esc(s.label) + '</span><span class="amount">' + s.val + '</span></div>';
+      }
+      html += '</div></div></div>';
+    }
+
+    if (day.notes) {
+      html += '<div class="note-box">📝 ' + esc(day.notes) + '</div>';
+    }
+
+    return html;
+  }
+
+  function viewToday() {
+    const day = pickTodayDay();
+    const eu = europeTodayYMD();
+    return renderDayDetail(day, {
+      showPicker: true,
+      isTodayApprox: true,
+      back: false
+    }) + (eu !== day.date
+      ? '<p class="muted sm" style="margin-top:8px;text-align:center">기기(유럽) 날짜: ' + esc(eu) + '</p>'
+      : '');
+  }
+
+  function viewDays() {
+    let html = '<div class="sec-title">전체 일정</div><div class="card" style="padding:4px 12px">';
+    for (const d of BOARD.days) {
+      const miss = d.lodging && d.lodging.status === 'missing';
+      const hasT = d.transport && d.transport.length;
+      html += '<a class="list-day" href="#/day/' + d.date + '">' +
+        '<div class="date-col"><div class="d">' + (parseYMD(d.date).getMonth()+1) + '/' + parseYMD(d.date).getDate() +
+        '</div><div class="w">' + WEEK_KO[parseYMD(d.date).getDay()] + '</div></div>' +
+        '<div style="flex:1;min-width:0">' +
+        '<div style="font-weight:600">' + esc(d.city) + (miss ? ' <span class="badge danger">숙소 공백</span>' : '') + '</div>' +
+        '<div class="muted sm" style="white-space:nowrap;overflow:hidden;text-overflow:ellipsis">' +
+        esc(d.lodging && d.lodging.name ? d.lodging.name : (miss ? '숙소 미예약' : '')) +
+        (hasT ? ' · 교통 ' + d.transport.length : '') +
+        '</div></div><span class="muted">›</span></a>';
+    }
+    html += '</div>';
+    return html;
+  }
+
+  function viewDay(dateStr) {
+    const day = BOARD.days.find(d => d.date === dateStr);
+    if (!day) return '<div class="empty">해당 날짜 없음</div>';
+    return renderDayDetail(day, { back: true, showPicker: true });
+  }
+
+  function viewStays() {
+    const hotels = (BOARD.bookings || []).filter(b => b.category === 'hotel' || b.category === 'airbnb');
+    let html = '<div class="sec-title">숙소 (' + hotels.length + '곳 + 공백)</div>';
+    for (const b of hotels) {
+      const lines = [];
+      lines.push(['도시', esc(b.city)]);
+      lines.push(['일정', esc(b.nights)]);
+      lines.push(['코드', '<code class="pnr">' + esc(b.id) + '</code>']);
+      if (b.receipt) lines.push(['영수증', '<code class="pnr">' + esc(b.receipt) + '</code>']);
+      if (b.amount_krw != null) lines.push(['금액', '<span class="amount">' + fmtKRW(b.amount_krw) + '</span>']);
+      if (b.paid_krw != null) lines.push(['선결제', '<span class="amount">' + fmtKRW(b.paid_krw) + '</span>']);
+      if (b.pay_at_property_krw != null) lines.push(['현지', '<span class="amount">' + fmtKRW(b.pay_at_property_krw) + '</span>']);
+      if (b.payment_last4) lines.push(['카드', '•••• ' + esc(b.payment_last4)]);
+      html += '<div class="card"><div class="row"><h3>' + esc(b.name) + '</h3>' +
+        '<span class="badge ok">' + (b.category === 'airbnb' ? 'Airbnb' : '호텔') + '</span></div>' +
+        '<div class="kv">' + lines.map(([k,v]) =>
+          '<div class="item"><span>' + k + '</span><span>' + v + '</span></div>'
+        ).join('') + '</div></div>';
+    }
+    html += '<div class="card gap-card"><h3>Madrid</h3>' +
+      '<p class="muted sm">2026-10-01 / 02 · 예약 없음</p>' +
+      statusBadge('missing') + '</div>';
+    return html;
+  }
+
+  function viewBookings() {
+    let html = '';
+    const flights = (BOARD.bookings || []).filter(b => b.category === 'flight');
+    const trains = (BOARD.bookings || []).filter(b => b.category === 'train');
+    const cars = (BOARD.bookings || []).filter(b => b.category === 'car_rental');
+    const bundle = (BOARD.bookings || []).find(b => b.category === 'flight_payment_bundle');
+
+    html += '<div class="sec-title">항공</div>';
+    for (const f of flights) {
+      const day = BOARD.days.find(d => d.date === f.date);
+      const t = day && (day.transport || []).find(x => x.type === 'flight' && (x.number === f.id || x.number === f.id));
+      const lines = [];
+      lines.push(['구간', esc(f.route)]);
+      lines.push(['날짜', esc(f.date)]);
+      if (t) {
+        lines.push(['시간', esc((t.depart||'') + ' → ' + (t.arrive||''))]);
+        if (t.carrier) lines.push(['항공사', esc(t.carrier)]);
+      }
+      if (f.pnr) lines.push(['PNR', '<code class="pnr">' + esc(f.pnr) + '</code>']);
+      if (f.booking_ref) lines.push(['예약번호', '<code class="pnr">' + esc(f.booking_ref) + '</code>']);
+      if (f.passengers) lines.push(['탑승객', esc(f.passengers.join(', '))]);
+      if (f.amount_krw != null) lines.push(['금액', '<span class="amount">' + fmtKRW(f.amount_krw) + '</span>']);
+      if (f.note) lines.push(['메모', esc(f.note)]);
+      const partial = f.id === 'KE914';
+      html += '<div class="card' + (partial ? ' gap-card' : '') + '">' +
+        '<div class="row"><h3>' + esc(f.id) + '</h3>' +
+        (partial ? statusBadge('partial') : '<span class="badge ok">확정</span>') + '</div>' +
+        '<div class="kv">' + lines.map(([k,v]) =>
+          '<div class="item"><span>' + k + '</span><span>' + v + '</span></div>'
+        ).join('') + '</div></div>';
+    }
+    if (bundle) {
+      html += '<div class="card"><h3>국제선 결제 합산</h3><div class="kv">' +
+        '<div class="item"><span>합계</span><span class="amount">' + fmtKRW(bundle.total_krw) + '</span></div>' +
+        '<div class="item"><span>3건</span><span class="amount">' +
+        bundle.amounts_krw.map(fmtKRW).join(' + ') + '</span></div>' +
+        '<div class="item"><span>카드</span><span>' + esc(bundle.cards.join(', ')) + '</span></div>' +
+        '</div></div>';
+    }
+
+    html += '<div class="section-gap sec-title">열차</div>';
+    for (const tr of trains) {
+      const day = BOARD.days.find(d => d.date === tr.date);
+      const t = day && (day.transport || []).find(x => x.type === 'train');
+      const lines = [];
+      lines.push(['구간', esc(tr.route)]);
+      lines.push(['날짜', esc(tr.date)]);
+      if (t) {
+        lines.push(['편명', esc((t.carrier||'') + (t.number ? ' ' + t.number : ''))]);
+        lines.push(['시간', esc((t.depart||'') + ' → ' + (t.arrive||''))]);
+        if (t.ref) lines.push(['참조', '<code class="pnr">' + esc(t.ref) + '</code>']);
+        if (t.seats) {
+          lines.push(['좌석', esc(Object.entries(t.seats).map(([k,v]) => k+' '+v).join(' · '))]);
+        }
+      }
+      if (tr.amount_eur != null) lines.push(['금액', '<span class="amount">' + fmtEUR(tr.amount_eur) + '</span>']);
+      if (tr.amount_krw_displayed != null) lines.push(['표시 ₩', '<span class="amount">' + fmtKRW(tr.amount_krw_displayed) + '</span>']);
+      if (tr.amount_krw_converted_in_master != null) lines.push(['마스터 ₩', '<span class="amount">' + fmtKRW(tr.amount_krw_converted_in_master) + '</span>']);
+      if (tr.fx_note) lines.push(['환율 비고', esc(tr.fx_note)]);
+      html += '<div class="card"><div class="row"><h3>' + esc(tr.id) + '</h3><span class="badge ok">확정</span></div>' +
+        '<div class="kv">' + lines.map(([k,v]) =>
+          '<div class="item"><span>' + k + '</span><span>' + v + '</span></div>'
+        ).join('') + '</div></div>';
+    }
+
+    html += '<div class="section-gap sec-title">렌터카</div>';
+    for (const c of cars) {
+      const lines = [];
+      lines.push(['업체', esc(c.vendor)]);
+      lines.push(['차종', esc(c.vehicle)]);
+      lines.push(['픽업', esc(c.pickup)]);
+      lines.push(['반납', esc(c.dropoff)]);
+      lines.push(['확인코드', '<code class="pnr">' + esc(c.id) + '</code>']);
+      lines.push(['금액', '<span class="amount">' + fmtEUR(c.amount_eur) + '</span>']);
+      html += '<div class="card"><div class="row"><h3>' + esc(c.vendor) + ' · ' + esc(c.vehicle) +
+        '</h3><span class="badge ok">확정</span></div><div class="kv">' +
+        lines.map(([k,v]) => '<div class="item"><span>' + k + '</span><span>' + v + '</span></div>').join('') +
+        '</div></div>';
+    }
+    return html;
+  }
+
+  function viewSpend() {
+    const spend = spendPrepaidList();
+    const master = spend.find(s => s.category === 'master_subtotal_excl_rentals');
+    const cars = spend.find(s => s.category === 'car_rentals');
+    let html = '';
+    if (master) {
+      html += '<div class="total-bar">' +
+        '<div class="label">선결제 소계 (렌트 제외 · 마스터)</div>' +
+        '<div class="val amount">' + fmtKRW(master.prepaid) + '</div>' +
+        '<div class="muted sm" style="margin-top:6px">현지세 ' + fmtKRW(master.local) +
+        ' · 예상 합 ' + fmtKRW(master.expected_total_with_local_tax) + '</div></div>';
+    }
+    if (cars) {
+      html += '<div class="total-bar" style="background:linear-gradient(135deg,#1a2830,#1e3040)">' +
+        '<div class="label">렌터카 Hertz (EUR · 마스터 미포함)</div>' +
+        '<div class="val amount">' + fmtEUR(cars.prepaid) + '</div>' +
+        '<div class="muted sm" style="margin-top:6px">' + esc(cars.note || '') + '</div></div>';
+    }
+    html += '<div class="sec-title">항목별</div>';
+    for (const s of spend) {
+      const title = CAT_KO[s.category] || s.category;
+      const lines = [];
+      if (s.prepaid != null) {
+        const cur = s.currency === 'EUR' ? fmtEUR(s.prepaid) : (s.currency === 'KRW' ? fmtKRW(s.prepaid) : String(s.prepaid));
+        lines.push(['선결제', '<span class="amount">' + cur + '</span>']);
+      } else {
+        lines.push(['선결제', '—']);
+      }
+      if (s.local != null) lines.push(['현지', '<span class="amount">' + fmtKRW(s.local) + '</span>']);
+      if (s.krw_display_in_master != null) lines.push(['마스터 표시 ₩', '<span class="amount">' + fmtKRW(s.krw_display_in_master) + '</span>']);
+      if (s.breakdown) {
+        lines.push(['내역', esc(Object.entries(s.breakdown).map(([k,v]) => k + ' ' + fmtKRW(v)).join(' · '))]);
+      }
+      if (s.note) lines.push(['비고', esc(s.note)]);
+      const isGap = s.category === 'madrid_lodging';
+      html += '<div class="card' + (isGap ? ' gap-card' : '') + '"><h3 style="font-size:1rem">' + esc(title) + '</h3>' +
+        '<div class="kv">' + lines.map(([k,v]) =>
+          '<div class="item"><span>' + k + '</span><span>' + v + '</span></div>'
+        ).join('') + '</div></div>';
+    }
+
+    html += '<div class="section-gap sec-title">현장 지출</div>';
+    const live = spendLiveList().slice().sort(function (a, b) {
+      const ra = a.recorded_at || '';
+      const rb = b.recorded_at || '';
+      if (ra !== rb) return rb.localeCompare(ra);
+      const da = a.date || '';
+      const db = b.date || '';
+      if (da !== db) return db.localeCompare(da);
+      return String(b.id || '').localeCompare(String(a.id || ''));
+    });
+    if (!live.length) {
+      html += '<div class="card"><p class="empty-soft">비용을 Travel Desk에 말하면 여기에 쌓입니다.</p></div>';
+    } else {
+      let sumEur = 0, sumKrw = 0, nEur = 0, nKrw = 0;
+      for (const item of live) {
+        if (item.amount == null || item.amount === '') continue;
+        const cur = (item.currency || '').toUpperCase();
+        if (cur === 'EUR') { sumEur += Number(item.amount); nEur++; }
+        else if (cur === 'KRW') { sumKrw += Number(item.amount); nKrw++; }
+      }
+      if (nEur || nKrw) {
+        html += '<div class="total-bar" style="background:linear-gradient(135deg,#243018,#2a3820)">';
+        html += '<div class="label">현장 지출 합계 (통화별 · 환산 없음)</div>';
+        if (nEur) html += '<div class="val amount" style="font-size:1.15rem;margin-top:4px">' + fmtEUR(sumEur) + '</div>';
+        if (nKrw) html += '<div class="val amount" style="font-size:1.15rem;margin-top:4px">' + fmtKRW(sumKrw) + '</div>';
+        html += '</div>';
+      }
+      const byDate = {};
+      const dateOrder = [];
+      for (const item of live) {
+        const d = item.date || '날짜 미상';
+        if (!byDate[d]) { byDate[d] = []; dateOrder.push(d); }
+        byDate[d].push(item);
+      }
+      for (const d of dateOrder) {
+        const label = d === '날짜 미상' ? d : fmtDayTitle(d);
+        html += '<div class="live-date-head">' + esc(label) + '</div>';
+        for (const item of byDate[d]) {
+          const cat = liveCategoryLabel(item.category);
+          const top = (cat ? esc(cat) : '지출') +
+            (item.city ? ' · ' + esc(item.city) : '');
+          html += '<div class="card live-item"><div class="row">' +
+            '<h3 style="font-size:.95rem">' + top + '</h3>' +
+            fmtLiveAmount(item) + '</div>';
+          if (item.note) html += '<p class="muted sm" style="margin-top:6px">' + esc(item.note) + '</p>';
+          const meta = [];
+          if (item.receipt) meta.push('영수증 ' + esc(item.receipt));
+          if (item.source) meta.push(esc(Array.isArray(item.source) ? item.source.join(', ') : item.source));
+          if (item.recorded_at) meta.push(esc(item.recorded_at));
+          if (meta.length) html += '<p class="muted sm" style="margin-top:4px">' + meta.join(' · ') + '</p>';
+          html += '</div>';
+        }
+      }
+    }
+
+    html += '<p class="muted sm" style="margin-top:12px;padding:0 4px">환율은 파일에 표시된 경우만 인용. 임의 환산 없음.</p>';
+    return html;
+  }
+
+  function viewGaps() {
+    let html = '<div class="sec-title">열린 공백</div>';
+    const order = { high: 0, medium: 1, low: 2, info: 3 };
+    const gaps = (BOARD.gaps || []).slice().sort((a,b) => (order[a.severity]||9) - (order[b.severity]||9));
+    for (const g of gaps) {
+      const cls = g.severity === 'high' ? 'gap-card' : (g.severity === 'medium' ? 'gap-card med' : 'gap-card low');
+      html += '<div class="card ' + cls + '">' +
+        '<div class="row"><span class="badge ' + (SEV_CLS[g.severity]||'plan') + '">' +
+        esc(SEV[g.severity] || g.severity) + '</span>' +
+        '<span class="muted sm mono">' + esc(g.id) + '</span></div>' +
+        '<p style="margin-top:8px">' + esc(g.detail) + '</p></div>';
+    }
+    return html;
+  }
+
+  function parseRoute() {
+    const h = (location.hash || '#/today').replace(/^#/, '') || '/today';
+    const parts = h.split('/').filter(Boolean);
+    const route = parts[0] || 'today';
+    const arg = parts[1] || null;
+    return { route, arg };
+  }
+
+  function setNav(route) {
+    const map = { today: 'today', days: 'days', day: 'days', stays: 'stays', bookings: 'bookings', spend: 'spend', gaps: 'gaps' };
+    const key = map[route] || 'today';
+    document.querySelectorAll('#nav a').forEach(a => {
+      a.classList.toggle('active', a.dataset.r === key);
+    });
+  }
+
+  function render() {
+    if (!BOARD) return;
+    const { route, arg } = parseRoute();
+    setNav(route);
+    const app = document.getElementById('app');
+    let html = '';
+    switch (route) {
+      case 'today': html = viewToday(); break;
+      case 'days': html = viewDays(); break;
+      case 'day': html = viewDay(arg); break;
+      case 'stays': html = viewStays(); break;
+      case 'bookings': html = viewBookings(); break;
+      case 'spend': html = viewSpend(); break;
+      case 'gaps': html = viewGaps(); break;
+      default: html = viewToday();
+    }
+    app.innerHTML = html;
+    window.scrollTo(0, 0);
+  }
+
+  async function loadBoard() {
+    const embed = document.getElementById('board-embed');
+    let data = null;
+    try {
+      const r = await fetch('trip_board.json', { cache: 'no-cache' });
+      if (r.ok) data = await r.json();
+    } catch (e) { /* file:// or offline */ }
+    if (!data && embed && embed.textContent.trim()) {
+      try { data = JSON.parse(embed.textContent); } catch (e) {}
+    }
+    if (!data) throw new Error('trip_board.json을 불러올 수 없습니다');
+    return data;
+  }
+
+  async function init() {
+    try {
+      BOARD = await loadBoard();
+      const m = BOARD.meta || {};
+      const sub = document.getElementById('hdr-sub');
+      if (sub && m.dates) {
+        sub.textContent = m.dates.start.replace(/-/g,'.') + ' – ' + m.dates.end.slice(5).replace(/-/g,'.') +
+          ' · 유경 · 선욱 · 오프라인';
+      }
+      if (!location.hash) location.hash = '#/today';
+      render();
+      window.addEventListener('hashchange', render);
+      if ('serviceWorker' in navigator && location.protocol.startsWith('http')) {
+        navigator.serviceWorker.register('sw.js').catch(function(){});
+      }
+    } catch (e) {
+      document.getElementById('app').innerHTML =
+        '<div class="empty">데이터 로드 실패<br><span class="sm">' + esc(e.message) + '</span></div>';
+    }
+  }
+  init();
+})();
+</script>
+</body>
+</html>
