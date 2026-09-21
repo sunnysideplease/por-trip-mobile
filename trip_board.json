@@ -33,7 +33,7 @@
     "redaction": "Payment instruments shown as last4 only",
     "day_plan_schema": "days[].day_plan {status,title,blocks[],updated_at,source}",
     "spend_schema": "spend.prepaid[] rollup; spend.live[] expenses from YKN",
-    "board_updated_at": "2026-09-21T17:19:53.096342+09:00",
+    "board_updated_at": "2026-09-21T17:39:11.901825+09:00",
     "source_of_truth": "Travel Desk"
   },
   "days": [
@@ -1157,8 +1157,8 @@
         "city": "Lisbon",
         "amount": 26572,
         "currency": "KRW",
-        "category": "shop",
-        "note": "16:34 MERCADO DE SANTOS",
+        "category": "food",
+        "note": "16:34 MERCADO DE SANTOS [재분류: 식료품→food]",
         "receipt": "/workspace/por-trip/receipts/card-2026-09-20-day.png",
         "source": "ykn-image",
         "recorded_at": "2026-09-21T14:27:25.812054+09:00"
@@ -1253,8 +1253,8 @@
         "city": "Lisbon",
         "amount": 6695,
         "currency": "KRW",
-        "category": "shop",
-        "note": "17:44 MERCADO DE SANTOS",
+        "category": "food",
+        "note": "17:44 MERCADO DE SANTOS [재분류: 식료품→food]",
         "receipt": "/workspace/por-trip/receipts/card-2026-09-20-lx.png",
         "source": "ykn-image",
         "recorded_at": "2026-09-21T17:19:53.096342+09:00"
