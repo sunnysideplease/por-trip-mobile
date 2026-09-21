@@ -59,6 +59,3 @@ Travel Desk가 `trip_board.json`에 `days[].day_plan`(동선)과 `spend.live`(�
 - `README.md` — 이 문서
 
 상위 폴더의 `trip-mobile.zip`은 이 `mobile/` 전체를 압축한 핸드오프용입니다.
-
-## Live
-https://sunnysideplease.github.io/por-trip-mobile/
