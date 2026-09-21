@@ -37,8 +37,8 @@ npx --yes serve -l 8080
 | 오늘 | `#/today` | 유럽 현지 날짜가 여행 기간이면 그날, 아니면 가장 가까운 날 |
 | 일정 | `#/days` · `#/day/YYYY-MM-DD` | 전체 일 → 상세 |
 | 숙소 | `#/stays` | 확인코드·일정·금액 |
-| 예약 | `#/bookings` | 항공·열차·렌터카 |
-| 비용 | `#/spend` | 선결제·Hertz € · 현장 지출(`spend.live`) |
+| 예약 | `#/bookings` · `#/bookings/{flight\|train\|car\|other}` | 항공·열차·렌터카·기타 (세그먼트 필터) |
+| 비용 | `#/spend` · `#/spend/day` · `#/spend/cat` | 선결제·Hertz € · 현장 지출 일별/카테고리 |
 | 공백 | `#/gaps` | 마드리드 숙소, NOH 귀국권, 코르도바 등 |
 
 ## 데이터

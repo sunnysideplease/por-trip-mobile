@@ -193,6 +193,40 @@ code.pnr {
   text-align: left; color: var(--muted); padding: 14px;
   font-size: .88rem; line-height: 1.5;
 }
+
+.seg {
+  display: flex; gap: 4px; padding: 4px;
+  background: var(--bg2); border: 1px solid var(--border);
+  border-radius: 12px; margin-bottom: 12px;
+}
+.seg a {
+  flex: 1; text-align: center; min-height: 40px;
+  display: flex; align-items: center; justify-content: center;
+  border-radius: 9px; font-size: .82rem; font-weight: 650;
+  color: var(--muted); padding: 8px 4px; text-decoration: none;
+}
+.seg a.active {
+  background: var(--accent); color: #fff;
+}
+.seg.scroll {
+  overflow-x: auto; -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
+}
+.seg.scroll::-webkit-scrollbar { display: none; }
+.seg.scroll a { flex: 0 0 auto; min-width: 64px; padding: 8px 12px; }
+.subtotal-line {
+  display: flex; flex-wrap: wrap; gap: 6px 12px; align-items: baseline;
+  font-size: .82rem; color: var(--muted); margin-top: 4px;
+}
+.subtotal-line .amount { color: var(--text); font-size: .88rem; }
+.live-group-head {
+  font-size: .78rem; font-weight: 650; color: var(--muted);
+  margin: 14px 4px 6px; letter-spacing: .02em;
+}
+.live-group-head .title { color: var(--text); font-size: .9rem; }
+.filter-empty {
+  text-align: center; color: var(--muted); padding: 24px 14px; font-size: .9rem;
+}
 </style>
 </head>
 <body>
@@ -527,7 +561,7 @@ code.pnr {
     if (!cat) return '';
     const map = {
       food: '식비', meal: '식비', cafe: '카페', transport: '교통', taxi: '택시',
-      lodging: '숙소', shopping: '쇼핑', ticket: '티켓', activity: '활동',
+      lodging: '숙소', shop: '쇼핑', shopping: '쇼핑', ticket: '티켓', activity: '활동',
       grocery: '장보기', tip: '팁', other: '기타'
     };
     return map[cat] || CAT_KO[cat] || cat;
@@ -641,39 +675,64 @@ code.pnr {
     return renderDayDetail(day, { back: true, showPicker: true });
   }
 
-  function viewStays() {
-    const hotels = (BOARD.bookings || []).filter(b => b.category === 'hotel' || b.category === 'airbnb');
-    let html = '<div class="sec-title">숙소 (' + hotels.length + '곳 + 공백)</div>';
-    for (const b of hotels) {
-      const lines = [];
-      lines.push(['도시', esc(b.city)]);
-      lines.push(['일정', esc(b.nights)]);
-      lines.push(['코드', '<code class="pnr">' + esc(b.id) + '</code>']);
-      if (b.receipt) lines.push(['영수증', '<code class="pnr">' + esc(b.receipt) + '</code>']);
-      if (b.amount_krw != null) lines.push(['금액', '<span class="amount">' + fmtKRW(b.amount_krw) + '</span>']);
-      if (b.paid_krw != null) lines.push(['선결제', '<span class="amount">' + fmtKRW(b.paid_krw) + '</span>']);
-      if (b.pay_at_property_krw != null) lines.push(['현지', '<span class="amount">' + fmtKRW(b.pay_at_property_krw) + '</span>']);
-      if (b.payment_last4) lines.push(['카드', '•••• ' + esc(b.payment_last4)]);
-      html += '<div class="card"><div class="row"><h3>' + esc(b.name) + '</h3>' +
-        '<span class="badge ok">' + (b.category === 'airbnb' ? 'Airbnb' : '호텔') + '</span></div>' +
-        '<div class="kv">' + lines.map(([k,v]) =>
-          '<div class="item"><span>' + k + '</span><span>' + v + '</span></div>'
-        ).join('') + '</div></div>';
+
+  function currencySubtotals(items) {
+    let sumEur = 0, sumKrw = 0, nEur = 0, nKrw = 0;
+    for (const item of items) {
+      if (item.amount == null || item.amount === '') continue;
+      const cur = (item.currency || '').toUpperCase();
+      if (cur === 'EUR') { sumEur += Number(item.amount); nEur++; }
+      else if (cur === 'KRW') { sumKrw += Number(item.amount); nKrw++; }
     }
-    html += '<div class="card gap-card"><h3>Madrid</h3>' +
-      '<p class="muted sm">2026-10-01 / 02 · 예약 없음</p>' +
-      statusBadge('missing') + '</div>';
+    return { sumEur: sumEur, sumKrw: sumKrw, nEur: nEur, nKrw: nKrw };
+  }
+
+  function fmtSubtotalsHtml(st) {
+    const parts = [];
+    if (st.nKrw) parts.push('<span class="amount">' + fmtKRW(st.sumKrw) + '</span>');
+    if (st.nEur) parts.push('<span class="amount">' + fmtEUR(st.sumEur) + '</span>');
+    if (!parts.length) return '';
+    return '<div class="subtotal-line">' + parts.join('<span>·</span>') + '</div>';
+  }
+
+  function renderLiveItemCard(item) {
+    const cat = liveCategoryLabel(item.category);
+    const top = (cat ? esc(cat) : '지출') +
+      (item.city ? ' · ' + esc(item.city) : '');
+    let html = '<div class="card live-item"><div class="row">' +
+      '<h3 style="font-size:.95rem">' + top + '</h3>' +
+      fmtLiveAmount(item) + '</div>';
+    if (item.note) html += '<p class="muted sm" style="margin-top:6px">' + esc(item.note) + '</p>';
+    const meta = [];
+    if (item.date) meta.push(esc(fmtDayTitle(item.date)));
+    if (item.receipt) meta.push('영수증');
+    if (item.source) meta.push(esc(Array.isArray(item.source) ? item.source.join(', ') : item.source));
+    if (meta.length) html += '<p class="muted sm" style="margin-top:4px">' + meta.join(' · ') + '</p>';
+    html += '</div>';
     return html;
   }
 
-  function viewBookings() {
-    let html = '';
-    const flights = (BOARD.bookings || []).filter(b => b.category === 'flight');
-    const trains = (BOARD.bookings || []).filter(b => b.category === 'train');
-    const cars = (BOARD.bookings || []).filter(b => b.category === 'car_rental');
-    const bundle = (BOARD.bookings || []).find(b => b.category === 'flight_payment_bundle');
+  function sortLiveItems(live) {
+    return live.slice().sort(function (a, b) {
+      const da = a.date || '';
+      const db = b.date || '';
+      if (da !== db) return db.localeCompare(da);
+      const ra = a.recorded_at || '';
+      const rb = b.recorded_at || '';
+      if (ra !== rb) return rb.localeCompare(ra);
+      return String(b.id || '').localeCompare(String(a.id || ''));
+    });
+  }
 
-    html += '<div class="sec-title">항공</div>';
+  function bookingBucket(cat) {
+    if (cat === 'flight' || cat === 'flight_payment_bundle') return 'flight';
+    if (cat === 'train') return 'train';
+    if (cat === 'car_rental') return 'car';
+    return 'other';
+  }
+
+  function renderFlightCards(flights, bundle) {
+    let html = '';
     for (const f of flights) {
       const day = BOARD.days.find(d => d.date === f.date);
       const t = day && (day.transport || []).find(x => x.type === 'flight' && (x.number === f.id || x.number === f.id));
@@ -705,8 +764,11 @@ code.pnr {
         '<div class="item"><span>카드</span><span>' + esc(bundle.cards.join(', ')) + '</span></div>' +
         '</div></div>';
     }
+    return html;
+  }
 
-    html += '<div class="section-gap sec-title">열차</div>';
+  function renderTrainCards(trains) {
+    let html = '';
     for (const tr of trains) {
       const day = BOARD.days.find(d => d.date === tr.date);
       const t = day && (day.transport || []).find(x => x.type === 'train');
@@ -730,8 +792,11 @@ code.pnr {
           '<div class="item"><span>' + k + '</span><span>' + v + '</span></div>'
         ).join('') + '</div></div>';
     }
+    return html;
+  }
 
-    html += '<div class="section-gap sec-title">렌터카</div>';
+  function renderCarCards(cars) {
+    let html = '';
     for (const c of cars) {
       const lines = [];
       lines.push(['업체', esc(c.vendor)]);
@@ -748,7 +813,130 @@ code.pnr {
     return html;
   }
 
-  function viewSpend() {
+  function renderOtherBookingCards(others) {
+    let html = '';
+    for (const b of others) {
+      if (b.category === 'hotel' || b.category === 'airbnb') {
+        const lines = [];
+        if (b.city) lines.push(['도시', esc(b.city)]);
+        if (b.nights) lines.push(['일정', esc(b.nights)]);
+        lines.push(['코드', '<code class="pnr">' + esc(b.id) + '</code>']);
+        if (b.amount_krw != null) lines.push(['금액', '<span class="amount">' + fmtKRW(b.amount_krw) + '</span>']);
+        if (b.paid_krw != null) lines.push(['선결제', '<span class="amount">' + fmtKRW(b.paid_krw) + '</span>']);
+        html += '<div class="card"><div class="row"><h3>' + esc(b.name || b.id) + '</h3>' +
+          '<span class="badge ok">' + (b.category === 'airbnb' ? 'Airbnb' : '호텔') + '</span></div>' +
+          '<div class="kv">' + lines.map(([k,v]) =>
+            '<div class="item"><span>' + k + '</span><span>' + v + '</span></div>'
+          ).join('') + '</div>' +
+          '<p class="muted sm" style="margin-top:6px">숙소 탭에서도 볼 수 있습니다</p></div>';
+      } else {
+        html += '<div class="card"><div class="row"><h3>' + esc(b.name || b.id) + '</h3>' +
+          '<span class="badge plan">' + esc(b.category || '기타') + '</span></div></div>';
+      }
+    }
+    return html;
+  }
+
+  function viewStays() {
+    const hotels = (BOARD.bookings || []).filter(b => b.category === 'hotel' || b.category === 'airbnb');
+    let html = '<div class="sec-title">숙소 (' + hotels.length + '곳 + 공백)</div>';
+    for (const b of hotels) {
+      const lines = [];
+      lines.push(['도시', esc(b.city)]);
+      lines.push(['일정', esc(b.nights)]);
+      lines.push(['코드', '<code class="pnr">' + esc(b.id) + '</code>']);
+      if (b.receipt) lines.push(['영수증', '<code class="pnr">' + esc(b.receipt) + '</code>']);
+      if (b.amount_krw != null) lines.push(['금액', '<span class="amount">' + fmtKRW(b.amount_krw) + '</span>']);
+      if (b.paid_krw != null) lines.push(['선결제', '<span class="amount">' + fmtKRW(b.paid_krw) + '</span>']);
+      if (b.pay_at_property_krw != null) lines.push(['현지', '<span class="amount">' + fmtKRW(b.pay_at_property_krw) + '</span>']);
+      if (b.payment_last4) lines.push(['카드', '•••• ' + esc(b.payment_last4)]);
+      html += '<div class="card"><div class="row"><h3>' + esc(b.name) + '</h3>' +
+        '<span class="badge ok">' + (b.category === 'airbnb' ? 'Airbnb' : '호텔') + '</span></div>' +
+        '<div class="kv">' + lines.map(([k,v]) =>
+          '<div class="item"><span>' + k + '</span><span>' + v + '</span></div>'
+        ).join('') + '</div></div>';
+    }
+    html += '<div class="card gap-card"><h3>Madrid</h3>' +
+      '<p class="muted sm">2026-10-01 / 02 · 예약 없음</p>' +
+      statusBadge('missing') + '</div>';
+    return html;
+  }
+
+
+  function viewBookings(filterArg) {
+    const allowed = { all:1, flight:1, train:1, car:1, other:1 };
+    const filter = (filterArg && allowed[filterArg]) ? filterArg : 'all';
+    const all = BOARD.bookings || [];
+    const flights = all.filter(b => b.category === 'flight');
+    const trains = all.filter(b => b.category === 'train');
+    const cars = all.filter(b => b.category === 'car_rental');
+    const bundle = all.find(b => b.category === 'flight_payment_bundle');
+    const others = all.filter(b => bookingBucket(b.category) === 'other');
+
+    const chips = [
+      ['all', '전체'],
+      ['flight', '항공'],
+      ['train', '열차'],
+      ['car', '렌터카'],
+      ['other', '기타']
+    ];
+    let html = '<div class="seg scroll" role="tablist" aria-label="예약 분류">';
+    for (const [key, lab] of chips) {
+      const href = key === 'all' ? '#/bookings' : '#/bookings/' + key;
+      html += '<a href="' + href + '" class="' + (filter === key ? 'active' : '') + '">' + lab + '</a>';
+    }
+    html += '</div>';
+
+    let any = false;
+    if (filter === 'all' || filter === 'flight') {
+      const body = renderFlightCards(flights, filter === 'all' || filter === 'flight' ? bundle : null);
+      if (body) {
+        html += '<div class="sec-title">항공</div>' + body;
+        any = true;
+      } else if (filter === 'flight') {
+        html += '<div class="card"><p class="filter-empty">항공 예약 없음</p></div>';
+        any = true;
+      }
+    }
+    if (filter === 'all' || filter === 'train') {
+      const body = renderTrainCards(trains);
+      if (body) {
+        html += '<div class="section-gap sec-title">열차</div>' + body;
+        any = true;
+      } else if (filter === 'train') {
+        html += '<div class="card"><p class="filter-empty">열차 예약 없음</p></div>';
+        any = true;
+      }
+    }
+    if (filter === 'all' || filter === 'car') {
+      const body = renderCarCards(cars);
+      if (body) {
+        html += '<div class="section-gap sec-title">렌터카</div>' + body;
+        any = true;
+      } else if (filter === 'car') {
+        html += '<div class="card"><p class="filter-empty">렌터카 예약 없음</p></div>';
+        any = true;
+      }
+    }
+    if (filter === 'all' || filter === 'other') {
+      const body = renderOtherBookingCards(others);
+      if (body) {
+        html += '<div class="section-gap sec-title">기타</div>' + body;
+        any = true;
+      } else if (filter === 'other') {
+        html += '<div class="card"><p class="filter-empty">기타 예약 없음</p></div>';
+        any = true;
+      }
+    }
+    if (!any) {
+      html += '<div class="card"><p class="filter-empty">표시할 예약이 없습니다</p></div>';
+    }
+    return html;
+  }
+
+
+  function viewSpend(viewArg) {
+    const view = (viewArg === 'cat' || viewArg === 'category') ? 'cat' : 'day';
     const spend = spendPrepaidList();
     const master = spend.find(s => s.category === 'master_subtotal_excl_rentals');
     const cars = spend.find(s => s.category === 'car_rentals');
@@ -790,56 +978,67 @@ code.pnr {
     }
 
     html += '<div class="section-gap sec-title">현장 지출</div>';
-    const live = spendLiveList().slice().sort(function (a, b) {
-      const ra = a.recorded_at || '';
-      const rb = b.recorded_at || '';
-      if (ra !== rb) return rb.localeCompare(ra);
-      const da = a.date || '';
-      const db = b.date || '';
-      if (da !== db) return db.localeCompare(da);
-      return String(b.id || '').localeCompare(String(a.id || ''));
-    });
+    html += '<div class="seg" role="tablist" aria-label="현장 지출 보기">' +
+      '<a href="#/spend/day" class="' + (view === 'day' ? 'active' : '') + '">일별</a>' +
+      '<a href="#/spend/cat" class="' + (view === 'cat' ? 'active' : '') + '">카테고리</a>' +
+      '</div>';
+
+    const live = sortLiveItems(spendLiveList());
     if (!live.length) {
       html += '<div class="card"><p class="empty-soft">비용을 Travel Desk에 말하면 여기에 쌓입니다.</p></div>';
     } else {
-      let sumEur = 0, sumKrw = 0, nEur = 0, nKrw = 0;
-      for (const item of live) {
-        if (item.amount == null || item.amount === '') continue;
-        const cur = (item.currency || '').toUpperCase();
-        if (cur === 'EUR') { sumEur += Number(item.amount); nEur++; }
-        else if (cur === 'KRW') { sumKrw += Number(item.amount); nKrw++; }
-      }
-      if (nEur || nKrw) {
+      const grand = currencySubtotals(live);
+      if (grand.nEur || grand.nKrw) {
         html += '<div class="total-bar" style="background:linear-gradient(135deg,#243018,#2a3820)">';
         html += '<div class="label">현장 지출 합계 (통화별 · 환산 없음)</div>';
-        if (nEur) html += '<div class="val amount" style="font-size:1.15rem;margin-top:4px">' + fmtEUR(sumEur) + '</div>';
-        if (nKrw) html += '<div class="val amount" style="font-size:1.15rem;margin-top:4px">' + fmtKRW(sumKrw) + '</div>';
+        if (grand.nKrw) html += '<div class="val amount" style="font-size:1.15rem;margin-top:4px">' + fmtKRW(grand.sumKrw) + '</div>';
+        if (grand.nEur) html += '<div class="val amount" style="font-size:1.15rem;margin-top:4px">' + fmtEUR(grand.sumEur) + '</div>';
         html += '</div>';
       }
-      const byDate = {};
-      const dateOrder = [];
-      for (const item of live) {
-        const d = item.date || '날짜 미상';
-        if (!byDate[d]) { byDate[d] = []; dateOrder.push(d); }
-        byDate[d].push(item);
-      }
-      for (const d of dateOrder) {
-        const label = d === '날짜 미상' ? d : fmtDayTitle(d);
-        html += '<div class="live-date-head">' + esc(label) + '</div>';
-        for (const item of byDate[d]) {
-          const cat = liveCategoryLabel(item.category);
-          const top = (cat ? esc(cat) : '지출') +
-            (item.city ? ' · ' + esc(item.city) : '');
-          html += '<div class="card live-item"><div class="row">' +
-            '<h3 style="font-size:.95rem">' + top + '</h3>' +
-            fmtLiveAmount(item) + '</div>';
-          if (item.note) html += '<p class="muted sm" style="margin-top:6px">' + esc(item.note) + '</p>';
-          const meta = [];
-          if (item.receipt) meta.push('영수증 ' + esc(item.receipt));
-          if (item.source) meta.push(esc(Array.isArray(item.source) ? item.source.join(', ') : item.source));
-          if (item.recorded_at) meta.push(esc(item.recorded_at));
-          if (meta.length) html += '<p class="muted sm" style="margin-top:4px">' + meta.join(' · ') + '</p>';
-          html += '</div>';
+
+      if (view === 'day') {
+        const byDate = {};
+        const dateOrder = [];
+        for (const item of live) {
+          const d = item.date || '날짜 미상';
+          if (!byDate[d]) { byDate[d] = []; dateOrder.push(d); }
+          byDate[d].push(item);
+        }
+        for (const d of dateOrder) {
+          const items = byDate[d];
+          const label = d === '날짜 미상' ? d : fmtDayTitle(d);
+          const st = currencySubtotals(items);
+          html += '<div class="live-group-head"><span class="title">' + esc(label) + '</span>' +
+            ' · ' + items.length + '건' + fmtSubtotalsHtml(st) + '</div>';
+          for (const item of items) html += renderLiveItemCard(item);
+        }
+      } else {
+        const byCat = {};
+        const catOrder = [];
+        for (const item of live) {
+          const c = item.category || 'other';
+          if (!byCat[c]) { byCat[c] = []; catOrder.push(c); }
+          byCat[c].push(item);
+        }
+        catOrder.sort(function (a, b) {
+          const sa = currencySubtotals(byCat[a]);
+          const sb = currencySubtotals(byCat[b]);
+          // Prefer more KRW first, then EUR, then name — no FX invent
+          if (sa.sumKrw !== sb.sumKrw) return sb.sumKrw - sa.sumKrw;
+          if (sa.sumEur !== sb.sumEur) return sb.sumEur - sa.sumEur;
+          return String(a).localeCompare(String(b));
+        });
+        for (const c of catOrder) {
+          const items = byCat[c];
+          const label = liveCategoryLabel(c) || c;
+          const st = currencySubtotals(items);
+          html += '<div class="live-group-head"><span class="title">' + esc(label) + '</span>' +
+            ' · ' + items.length + '건' + fmtSubtotalsHtml(st) + '</div>';
+          // within category: by date desc
+          items.sort(function (a, b) {
+            return String(b.date || '').localeCompare(String(a.date || ''));
+          });
+          for (const item of items) html += renderLiveItemCard(item);
         }
       }
     }
@@ -890,8 +1089,8 @@ code.pnr {
       case 'days': html = viewDays(); break;
       case 'day': html = viewDay(arg); break;
       case 'stays': html = viewStays(); break;
-      case 'bookings': html = viewBookings(); break;
-      case 'spend': html = viewSpend(); break;
+      case 'bookings': html = viewBookings(arg); break;
+      case 'spend': html = viewSpend(arg); break;
       case 'gaps': html = viewGaps(); break;
       default: html = viewToday();
     }
