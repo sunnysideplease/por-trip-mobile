@@ -33,7 +33,7 @@
     "redaction": "Payment instruments shown as last4 only",
     "day_plan_schema": "days[].day_plan {status,title,blocks[],updated_at,source}",
     "spend_schema": "spend.prepaid[] rollup; spend.live[] expenses from YKN",
-    "board_updated_at": "2026-09-21T18:32:45.932041+09:00",
+    "board_updated_at": "2026-09-21T18:46:36.087853+09:00",
     "source_of_truth": "Travel Desk"
   },
   "days": [
@@ -199,28 +199,34 @@
       "notes": "",
       "day_plan": {
         "status": "suggested",
-        "title": "리스본→포르투 도착·Ribeira",
+        "title": "도착·저녁은 바다 쪽",
         "blocks": [
           {
             "time": "11:30-14:43",
-            "place": "IC621 LIS→OPO Campanhã",
-            "note": "1ª Classe",
+            "place": "IC621 → Campanhã",
+            "note": "체크인 MariPinto",
             "kind": "transit"
           },
           {
             "time": "15:00",
             "place": "MariPinto Downtown Apt",
-            "note": "Rua do General Silveira 29 체크인",
+            "note": "Rua do General Silveira 29",
             "kind": "rest"
           },
           {
             "time": "저녁",
-            "place": "Ribeira + Dom Luís I / Gaia view",
-            "note": "가볍게",
+            "place": "Matosinhos / Foz 해변",
+            "note": "일광·산책(수영은 선택). 와이너리 없음",
             "kind": "walk"
+          },
+          {
+            "time": "저녁식사",
+            "place": "Matosinhos 해산물",
+            "note": "로컬 저녁",
+            "kind": "food"
           }
         ],
-        "updated_at": "2026-09-21T13:48:03.757781+09:00",
+        "updated_at": "2026-09-21T18:46:36.087853+09:00",
         "source": "travel-desk"
       }
     },
@@ -247,34 +253,40 @@
       "notes": "",
       "day_plan": {
         "status": "suggested",
-        "title": "테니스·사우나·Bombarda·Gaia",
+        "title": "조식뷔페·짐·사우나·바다",
         "blocks": [
           {
-            "time": "08:00-09:30",
-            "place": "Quinta de Monserrate / Parque da Cidade",
-            "note": "Playtomic; 2인 Simples €24/h, Duplas €32/h",
+            "time": "07:30-09:30",
+            "place": "호텔 조식 뷔페",
+            "note": "Jupiter AlNorte ~€16 또는 Porto Palácio Madruga — 전날 전화",
+            "kind": "food"
+          },
+          {
+            "time": "10:00-11:30",
+            "place": "Gym Matosinhos",
+            "note": "Workout/CR7 day pass ~€10",
             "kind": "other"
           },
           {
-            "time": "10:00-11:00",
-            "place": "Ladata Matosinhos",
-            "note": "MVMT형; 대안 Spa Cénica",
+            "time": "11:30-12:30",
+            "place": "Ladata Recovery",
+            "note": "MVMT형 사우나·콜드",
             "kind": "rest"
           },
           {
-            "time": "12:00-14:00",
-            "place": "Rua Miguel Bombarda",
-            "note": "LX형 예술골목",
+            "time": "오후",
+            "place": "Praia de Matosinhos",
+            "note": "일광욕·수영(대서양 차가움; 공식시즌 9/13 종료 후 무인명)",
             "kind": "walk"
           },
           {
-            "time": "15:30-18:30",
-            "place": "Gaia wine + Ribeira",
-            "note": "셀러 1곳",
-            "kind": "walk"
+            "time": "저녁",
+            "place": "Matosinhos 또는 시내",
+            "note": "와이너리·테니스 없음",
+            "kind": "food"
           }
         ],
-        "updated_at": "2026-09-21T13:48:03.757781+09:00",
+        "updated_at": "2026-09-21T18:46:36.087853+09:00",
         "source": "travel-desk"
       }
     },
@@ -325,13 +337,19 @@
       "notes": "Self check-in guidance expected day before per trip plan",
       "day_plan": {
         "status": "suggested",
-        "title": "오전 짧게→OPO 출국",
+        "title": "조식·짧게 회복→공항",
         "blocks": [
           {
-            "time": "오전",
-            "place": "Clérigos 밖 / Bolhão",
-            "note": "가볍게 택1",
-            "kind": "walk"
+            "time": "07:30-09:00",
+            "place": "호텔 조식 뷔페",
+            "note": "전날과 동일 추천",
+            "kind": "food"
+          },
+          {
+            "time": "09:00-10:30",
+            "place": "Spa Cénica 또는 해변 짧게",
+            "note": "둘 중 하나·여유 시. 비행 13:10",
+            "kind": "rest"
           },
           {
             "time": "~11:00",
@@ -340,7 +358,7 @@
             "kind": "transit"
           }
         ],
-        "updated_at": "2026-09-21T13:48:03.757781+09:00",
+        "updated_at": "2026-09-21T18:46:36.087853+09:00",
         "source": "travel-desk"
       }
     },
