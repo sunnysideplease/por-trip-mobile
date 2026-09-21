@@ -33,7 +33,7 @@
     "redaction": "Payment instruments shown as last4 only",
     "day_plan_schema": "days[].day_plan {status,title,blocks[],updated_at,source}",
     "spend_schema": "spend.prepaid[] rollup; spend.live[] expenses from YKN",
-    "board_updated_at": "2026-09-21T17:39:11.901825+09:00",
+    "board_updated_at": "2026-09-21T18:32:45.932041+09:00",
     "source_of_truth": "Travel Desk"
   },
   "days": [
@@ -1205,8 +1205,8 @@
         "city": "Lisbon",
         "amount": 80164,
         "currency": "KRW",
-        "category": "food",
-        "note": "20:59 TRF LX FACTORY",
+        "category": "shop",
+        "note": "20:59 TRF LX FACTORY [재분류: 쇼핑]",
         "receipt": "/workspace/por-trip/receipts/card-2026-09-20-lx.png",
         "source": "ykn-image",
         "recorded_at": "2026-09-21T17:19:53.096342+09:00"
@@ -1217,8 +1217,8 @@
         "city": "Lisbon",
         "amount": 80164,
         "currency": "KRW",
-        "category": "food",
-        "note": "20:32 351 LX FACTORY",
+        "category": "shop",
+        "note": "20:32 351 LX FACTORY [재분류: 쇼핑]",
         "receipt": "/workspace/por-trip/receipts/card-2026-09-20-lx.png",
         "source": "ykn-image",
         "recorded_at": "2026-09-21T17:19:53.096342+09:00"
