@@ -1,5 +1,5 @@
 /* Offline cache for trip mobile board */
-const CACHE = 'por-trip-mobile-v1';
+const CACHE = 'por-trip-mobile-v2';
 const ASSETS = ['./', './index.html', './trip_board.json'];
 
 self.addEventListener('install', (event) => {

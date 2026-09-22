@@ -33,8 +33,31 @@
     "redaction": "Payment instruments shown as last4 only",
     "day_plan_schema": "days[].day_plan {status,title,blocks[],updated_at,source}",
     "spend_schema": "spend.prepaid[] rollup; spend.live[] expenses from YKN",
-    "board_updated_at": "2026-09-21T19:26:15.737443+09:00",
-    "source_of_truth": "Travel Desk"
+    "board_updated_at": "2026-09-22T23:17:20+09:00",
+    "source_of_truth": "Travel Desk",
+    "porto_saved_places": [
+      "Candelabro",
+      "Brasão Aliados",
+      "Solar Moinho de Vento",
+      "Ostras & Coisas",
+      "Mercado do Bolhão",
+      "Maus Hábitos",
+      "Casa Guedes Tradicional",
+      "Rooftop Flores",
+      "Casa Portuguesa do Pastel de Bacalhau",
+      "Cais da Ribeira",
+      "A Grade",
+      "Mercado Beira Rio",
+      "Livraria Lello",
+      "Torre dos Clérigos",
+      "Sé do Porto",
+      "Palácio da Bolsa",
+      "World of Discoveries",
+      "Jardim do Morro",
+      "Miradouro da Serra do Pilar",
+      "Combi Coffee Roasters"
+    ],
+    "porto_breakfast_policy": "buffet only; skip Rosa Et Al brunch; skip Porto Palacio spa"
   },
   "days": [
     {
@@ -199,34 +222,34 @@
       "notes": "",
       "day_plan": {
         "status": "suggested",
-        "title": "도착·Bombarda 골목 저녁",
+        "title": "도착·시내 골목·저장맛집",
         "blocks": [
           {
-            "time": "11:30-14:43",
-            "place": "IC621 → Campanhã",
-            "note": "체크인 MariPinto",
+            "time": "14:43+",
+            "place": "Campanhã → MariPinto",
+            "note": "체크인",
             "kind": "transit"
           },
           {
-            "time": "15:00",
-            "place": "MariPinto Downtown Apt",
-            "note": "Rua do General Silveira 29",
-            "kind": "rest"
+            "time": "저녁",
+            "place": "Bombarda / Cedofeita",
+            "note": "LX형 골목",
+            "kind": "walk"
           },
           {
             "time": "저녁",
-            "place": "Rua Miguel Bombarda + Rosário/Cedofeita",
-            "note": "LX형 골목. 사우나·짐·와이너리 없음",
-            "kind": "walk"
+            "place": "저장 맛집 택1",
+            "note": "Brasão Aliados / Candelabro / Casa Guedes 등",
+            "kind": "food"
           },
           {
             "time": "선택",
-            "place": "Ribeira 산책만",
-            "note": "셀러 투어 없음",
+            "place": "Cais da Ribeira",
+            "note": "산책만, 와이너리 투어 없음",
             "kind": "walk"
           }
         ],
-        "updated_at": "2026-09-21T19:26:15.737443+09:00",
+        "updated_at": "2026-09-21T20:24:46.006305+09:00",
         "source": "travel-desk"
       }
     },
@@ -253,34 +276,34 @@
       "notes": "",
       "day_plan": {
         "status": "suggested",
-        "title": "부티크 조식·바다·골목",
+        "title": "뷔페 조식·트램1·Foz 해변",
         "blocks": [
           {
-            "time": "07:30-10:00",
-            "place": "부티크 호텔 조식",
-            "note": "회신 대기: Yeatman/Rosa/Torel 등",
+            "time": "아침",
+            "place": "호텔 뷔페 조식",
+            "note": "뷔페만. Rosa·스파 skip. 회신 대기: Yeatman/Torel/Jupiter/Madruga",
             "kind": "food"
           },
           {
-            "time": "오전~오후",
-            "place": "Praia de Matosinhos",
+            "time": "오전",
+            "place": "Infante → Tram 1",
+            "note": "해변(Foz) 방향",
+            "kind": "transit"
+          },
+          {
+            "time": "낮",
+            "place": "Foz do Douro / Praia",
             "note": "일광·수영. 사우나·짐 없음",
             "kind": "walk"
           },
           {
-            "time": "오후/저녁",
-            "place": "Rua das Flores 또는 Bombarda",
-            "note": "볼거리 거리",
-            "kind": "walk"
-          },
-          {
             "time": "저녁",
-            "place": "Matosinhos 해산물 또는 시내",
-            "note": "와이너리 없음",
+            "place": "복귀 후 저장 맛집",
+            "note": "Ostras & Coisas / A Grade / Rooftop Flores 등",
             "kind": "food"
           }
         ],
-        "updated_at": "2026-09-21T19:26:15.737443+09:00",
+        "updated_at": "2026-09-21T20:31:55.013035+09:00",
         "source": "travel-desk"
       }
     },
@@ -331,28 +354,28 @@
       "notes": "Self check-in guidance expected day before per trip plan",
       "day_plan": {
         "status": "suggested",
-        "title": "조식·골목 짧게→공항",
+        "title": "뷔페 조식·골목→공항",
         "blocks": [
           {
-            "time": "07:30-09:00",
-            "place": "부티크 호텔 조식",
-            "note": "호텔 회신 후 확정",
+            "time": "아침",
+            "place": "호텔 뷔페 조식",
+            "note": "뷔페만. Rosa·스파 skip. 회신 대기: Yeatman/Torel/Jupiter/Madruga",
             "kind": "food"
           },
           {
             "time": "09:00-10:15",
-            "place": "Bombarda 또는 Rua das Flores",
-            "note": "짧게",
+            "place": "Mercado do Bolhão + Flores",
+            "note": "저장 장소 활용",
             "kind": "walk"
           },
           {
             "time": "~11:00",
-            "place": "OPO Airport",
+            "place": "OPO",
             "note": "FR6750 13:10",
             "kind": "transit"
           }
         ],
-        "updated_at": "2026-09-21T19:26:15.737443+09:00",
+        "updated_at": "2026-09-21T20:31:55.013035+09:00",
         "source": "travel-desk"
       }
     },
@@ -1378,6 +1401,188 @@
         "receipt": "/workspace/por-trip/receipts/card-2026-09-20-21-evening.png",
         "source": "ykn-image",
         "recorded_at": "2026-09-21T17:19:53.096342+09:00"
+      },
+      {
+        "id": "exp-20260921-33",
+        "date": "2026-09-21",
+        "city": "Porto",
+        "amount": 43770,
+        "currency": "KRW",
+        "category": "other",
+        "note": "17:30 SEAGULL METHOD - UNIPE",
+        "receipt": "card-screenshot-2026-09-22",
+        "card_last4": "070",
+        "source": "ykn-image",
+        "recorded_at": "2026-09-22T23:16:42+09:00"
+      },
+      {
+        "id": "exp-20260921-34",
+        "date": "2026-09-21",
+        "city": "Porto",
+        "amount": 11243,
+        "currency": "KRW",
+        "category": "transport",
+        "note": "18:33 UBER * PENDING",
+        "receipt": "card-screenshot-2026-09-22",
+        "card_last4": "070",
+        "source": "ykn-image",
+        "recorded_at": "2026-09-22T23:16:42+09:00"
+      },
+      {
+        "id": "exp-20260921-35",
+        "date": "2026-09-21",
+        "city": "Porto",
+        "amount": 5628,
+        "currency": "KRW",
+        "category": "food",
+        "note": "19:06 JOAQUIM REBELO",
+        "receipt": "card-screenshot-2026-09-22",
+        "card_last4": "070",
+        "source": "ykn-image",
+        "recorded_at": "2026-09-22T23:16:42+09:00"
+      },
+      {
+        "id": "exp-20260921-36",
+        "date": "2026-09-21",
+        "city": "Porto",
+        "amount": 6426,
+        "currency": "KRW",
+        "category": "transport",
+        "note": "23:23 UBER * PENDING",
+        "receipt": "card-screenshot-2026-09-22",
+        "card_last4": "070",
+        "source": "ykn-image",
+        "recorded_at": "2026-09-22T23:16:42+09:00"
+      },
+      {
+        "id": "exp-20260922-37",
+        "date": "2026-09-22",
+        "city": "Porto",
+        "amount": 34766,
+        "currency": "KRW",
+        "category": "food",
+        "note": "00:55 CPPB FLORES",
+        "receipt": "card-screenshot-2026-09-22",
+        "card_last4": "070",
+        "source": "ykn-image",
+        "recorded_at": "2026-09-22T23:16:42+09:00"
+      },
+      {
+        "id": "exp-20260922-38",
+        "date": "2026-09-22",
+        "city": "Porto",
+        "amount": 4830,
+        "currency": "KRW",
+        "category": "food",
+        "note": "01:11 SHFIK ALIM E FRUTA",
+        "receipt": "card-screenshot-2026-09-22",
+        "card_last4": "070",
+        "source": "ykn-image",
+        "recorded_at": "2026-09-22T23:16:42+09:00"
+      },
+      {
+        "id": "exp-20260922-39",
+        "date": "2026-09-22",
+        "city": "Porto",
+        "amount": 22529,
+        "currency": "KRW",
+        "category": "transport",
+        "note": "03:24 TELEFERICO DE GAIA",
+        "receipt": "card-screenshot-2026-09-22",
+        "card_last4": "070",
+        "source": "ykn-image",
+        "recorded_at": "2026-09-22T23:16:42+09:00"
+      },
+      {
+        "id": "exp-20260922-40",
+        "date": "2026-09-22",
+        "city": "Porto",
+        "amount": 35103,
+        "currency": "KRW",
+        "category": "food",
+        "note": "04:29 PINGO DOCE",
+        "receipt": "card-screenshot-2026-09-22",
+        "card_last4": "070",
+        "source": "ykn-image",
+        "recorded_at": "2026-09-22T23:16:42+09:00"
+      },
+      {
+        "id": "exp-20260922-41",
+        "date": "2026-09-22",
+        "city": "Porto",
+        "amount": 14195,
+        "currency": "KRW",
+        "category": "wellness",
+        "note": "15:44 Trindade FITNESS HUT",
+        "receipt": "card-screenshot-2026-09-22",
+        "card_last4": "070",
+        "source": "ykn-image",
+        "recorded_at": "2026-09-22T23:16:42+09:00"
+      },
+      {
+        "id": "exp-20260922-42",
+        "date": "2026-09-22",
+        "city": "Porto",
+        "amount": 14195,
+        "currency": "KRW",
+        "category": "wellness",
+        "note": "15:45 Trindade FITNESS HUT",
+        "receipt": "card-screenshot-2026-09-22",
+        "card_last4": "070",
+        "source": "ykn-image",
+        "recorded_at": "2026-09-22T23:17:20+09:00"
+      },
+      {
+        "id": "exp-20260922-43",
+        "date": "2026-09-22",
+        "city": "Porto",
+        "amount": 41059,
+        "currency": "KRW",
+        "category": "food",
+        "note": "17:32 SUPERMERCADO FROIZ",
+        "receipt": "card-screenshot-2026-09-22",
+        "card_last4": "070",
+        "source": "ykn-image",
+        "recorded_at": "2026-09-22T23:16:42+09:00"
+      },
+      {
+        "id": "exp-20260922-44",
+        "date": "2026-09-22",
+        "city": "Porto",
+        "amount": 10851,
+        "currency": "KRW",
+        "category": "food",
+        "note": "20:24 RIBEIRAGEST LDA",
+        "receipt": "card-screenshot-2026-09-22",
+        "card_last4": "070",
+        "source": "ykn-image",
+        "recorded_at": "2026-09-22T23:16:42+09:00"
+      },
+      {
+        "id": "exp-20260922-45",
+        "date": "2026-09-22",
+        "city": "Porto",
+        "amount": 9505,
+        "currency": "KRW",
+        "category": "transport",
+        "note": "20:36 UBER * PENDING",
+        "receipt": "card-screenshot-2026-09-22",
+        "card_last4": "070",
+        "source": "ykn-image",
+        "recorded_at": "2026-09-22T23:16:42+09:00"
+      },
+      {
+        "id": "exp-20260922-46",
+        "date": "2026-09-22",
+        "city": "Porto",
+        "amount": 7867,
+        "currency": "KRW",
+        "category": "transport",
+        "note": "23:00 LIME*RIDE I5HW",
+        "receipt": "card-screenshot-2026-09-22",
+        "card_last4": "070",
+        "source": "ykn-image",
+        "recorded_at": "2026-09-22T23:16:42+09:00"
       }
     ]
   },
